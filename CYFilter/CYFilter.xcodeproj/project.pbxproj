@@ -21,6 +21,7 @@
 		E566FD7F15B0108F0080D2D5 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E566FD7E15B0108F0080D2D5 /* CoreMedia.framework */; };
 		E566FD8115B010A40080D2D5 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E566FD8015B010A40080D2D5 /* CoreVideo.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		E566FD8315B010B40080D2D5 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E566FD8215B010B40080D2D5 /* QuartzCore.framework */; };
+		E5A59EFC15B0320A005CFE0A /* SYPImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5A59EFB15B0320A005CFE0A /* SYPImagePickerController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +69,8 @@
 		E566FD7E15B0108F0080D2D5 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		E566FD8015B010A40080D2D5 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		E566FD8215B010B40080D2D5 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		E5A59EFA15B0320A005CFE0A /* SYPImagePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SYPImagePickerController.h; path = Classes/SYPImagePickerController.h; sourceTree = "<group>"; };
+		E5A59EFB15B0320A005CFE0A /* SYPImagePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SYPImagePickerController.m; path = Classes/SYPImagePickerController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,6 +151,8 @@
 		E566F93115AFF8590080D2D5 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				E5A59EFA15B0320A005CFE0A /* SYPImagePickerController.h */,
+				E5A59EFB15B0320A005CFE0A /* SYPImagePickerController.m */,
 				E566F92E15AFF8480080D2D5 /* CYMainViewController.h */,
 				E566F92F15AFF8480080D2D5 /* CYMainViewController.m */,
 				E566F94D15B0041F0080D2D5 /* CYShowCaseFilterViewController.h */,
@@ -255,6 +260,7 @@
 				E566F7B115AFF7640080D2D5 /* AppDelegate.m in Sources */,
 				E566F93015AFF8480080D2D5 /* CYMainViewController.m in Sources */,
 				E566F94F15B0041F0080D2D5 /* CYShowCaseFilterViewController.m in Sources */,
+				E5A59EFC15B0320A005CFE0A /* SYPImagePickerController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
