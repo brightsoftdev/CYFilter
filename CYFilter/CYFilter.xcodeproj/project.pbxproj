@@ -1,0 +1,384 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E566F7A115AFF7640080D2D5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E566F7A015AFF7640080D2D5 /* UIKit.framework */; };
+		E566F7A315AFF7640080D2D5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E566F7A215AFF7640080D2D5 /* Foundation.framework */; };
+		E566F7A515AFF7640080D2D5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E566F7A415AFF7640080D2D5 /* CoreGraphics.framework */; };
+		E566F7AB15AFF7640080D2D5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E566F7A915AFF7640080D2D5 /* InfoPlist.strings */; };
+		E566F7AD15AFF7640080D2D5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E566F7AC15AFF7640080D2D5 /* main.m */; };
+		E566F7B115AFF7640080D2D5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E566F7B015AFF7640080D2D5 /* AppDelegate.m */; };
+		E566F93015AFF8480080D2D5 /* CYMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E566F92F15AFF8480080D2D5 /* CYMainViewController.m */; };
+		E566F94F15B0041F0080D2D5 /* CYShowCaseFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E566F94E15B0041F0080D2D5 /* CYShowCaseFilterViewController.m */; };
+		E566FD7915B00CCC0080D2D5 /* libGPUImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E566FD6315B00B6E0080D2D5 /* libGPUImage.a */; };
+		E566FD7B15B0106F0080D2D5 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E566FD7A15B0106F0080D2D5 /* OpenGLES.framework */; };
+		E566FD7D15B0107B0080D2D5 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E566FD7C15B0107B0080D2D5 /* AVFoundation.framework */; };
+		E566FD7F15B0108F0080D2D5 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E566FD7E15B0108F0080D2D5 /* CoreMedia.framework */; };
+		E566FD8115B010A40080D2D5 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E566FD8015B010A40080D2D5 /* CoreVideo.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		E566FD8315B010B40080D2D5 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E566FD8215B010B40080D2D5 /* QuartzCore.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E566FD6215B00B6E0080D2D5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E566FD5915B00B6E0080D2D5 /* GPUImage.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BCF1A33414DDB1EC00852800;
+			remoteInfo = GPUImage;
+		};
+		E566FD6415B00B6E0080D2D5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E566FD5915B00B6E0080D2D5 /* GPUImage.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BCF1A34414DDB1EC00852800;
+			remoteInfo = GPUImageTests;
+		};
+		E566FD6815B00C3B0080D2D5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E566FD5915B00B6E0080D2D5 /* GPUImage.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = BCF1A33314DDB1EC00852800;
+			remoteInfo = GPUImage;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		E566F79C15AFF7640080D2D5 /* CYFilter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CYFilter.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E566F7A015AFF7640080D2D5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		E566F7A215AFF7640080D2D5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		E566F7A415AFF7640080D2D5 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		E566F7A815AFF7640080D2D5 /* CYFilter-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CYFilter-Info.plist"; sourceTree = "<group>"; };
+		E566F7AA15AFF7640080D2D5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		E566F7AC15AFF7640080D2D5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		E566F7AE15AFF7640080D2D5 /* CYFilter-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CYFilter-Prefix.pch"; sourceTree = "<group>"; };
+		E566F7AF15AFF7640080D2D5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		E566F7B015AFF7640080D2D5 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		E566F92E15AFF8480080D2D5 /* CYMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CYMainViewController.h; path = Classes/CYMainViewController.h; sourceTree = "<group>"; };
+		E566F92F15AFF8480080D2D5 /* CYMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CYMainViewController.m; path = Classes/CYMainViewController.m; sourceTree = "<group>"; };
+		E566F94D15B0041F0080D2D5 /* CYShowCaseFilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CYShowCaseFilterViewController.h; path = Classes/CYShowCaseFilterViewController.h; sourceTree = "<group>"; };
+		E566F94E15B0041F0080D2D5 /* CYShowCaseFilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CYShowCaseFilterViewController.m; path = Classes/CYShowCaseFilterViewController.m; sourceTree = "<group>"; };
+		E566FD5915B00B6E0080D2D5 /* GPUImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GPUImage.xcodeproj; path = framework/GPUImage.xcodeproj; sourceTree = "<group>"; };
+		E566FD7A15B0106F0080D2D5 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		E566FD7C15B0107B0080D2D5 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		E566FD7E15B0108F0080D2D5 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		E566FD8015B010A40080D2D5 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		E566FD8215B010B40080D2D5 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E566F79915AFF7640080D2D5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E566FD8315B010B40080D2D5 /* QuartzCore.framework in Frameworks */,
+				E566FD8115B010A40080D2D5 /* CoreVideo.framework in Frameworks */,
+				E566FD7F15B0108F0080D2D5 /* CoreMedia.framework in Frameworks */,
+				E566FD7D15B0107B0080D2D5 /* AVFoundation.framework in Frameworks */,
+				E566FD7B15B0106F0080D2D5 /* OpenGLES.framework in Frameworks */,
+				E566FD7915B00CCC0080D2D5 /* libGPUImage.a in Frameworks */,
+				E566F7A115AFF7640080D2D5 /* UIKit.framework in Frameworks */,
+				E566F7A315AFF7640080D2D5 /* Foundation.framework in Frameworks */,
+				E566F7A515AFF7640080D2D5 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E566F79115AFF7630080D2D5 = {
+			isa = PBXGroup;
+			children = (
+				E566F7A615AFF7640080D2D5 /* CYFilter */,
+				E566F79F15AFF7640080D2D5 /* Frameworks */,
+				E566F79D15AFF7640080D2D5 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E566F79D15AFF7640080D2D5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E566F79C15AFF7640080D2D5 /* CYFilter.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E566F79F15AFF7640080D2D5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E566FD5915B00B6E0080D2D5 /* GPUImage.xcodeproj */,
+				E566FD8215B010B40080D2D5 /* QuartzCore.framework */,
+				E566FD8015B010A40080D2D5 /* CoreVideo.framework */,
+				E566FD7E15B0108F0080D2D5 /* CoreMedia.framework */,
+				E566FD7C15B0107B0080D2D5 /* AVFoundation.framework */,
+				E566FD7A15B0106F0080D2D5 /* OpenGLES.framework */,
+				E566F7A015AFF7640080D2D5 /* UIKit.framework */,
+				E566F7A215AFF7640080D2D5 /* Foundation.framework */,
+				E566F7A415AFF7640080D2D5 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E566F7A615AFF7640080D2D5 /* CYFilter */ = {
+			isa = PBXGroup;
+			children = (
+				E566F93115AFF8590080D2D5 /* Classes */,
+				E566F7AF15AFF7640080D2D5 /* AppDelegate.h */,
+				E566F7B015AFF7640080D2D5 /* AppDelegate.m */,
+				E566F7A715AFF7640080D2D5 /* Supporting Files */,
+			);
+			path = CYFilter;
+			sourceTree = "<group>";
+		};
+		E566F7A715AFF7640080D2D5 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				E566F7A815AFF7640080D2D5 /* CYFilter-Info.plist */,
+				E566F7A915AFF7640080D2D5 /* InfoPlist.strings */,
+				E566F7AC15AFF7640080D2D5 /* main.m */,
+				E566F7AE15AFF7640080D2D5 /* CYFilter-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		E566F93115AFF8590080D2D5 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				E566F92E15AFF8480080D2D5 /* CYMainViewController.h */,
+				E566F92F15AFF8480080D2D5 /* CYMainViewController.m */,
+				E566F94D15B0041F0080D2D5 /* CYShowCaseFilterViewController.h */,
+				E566F94E15B0041F0080D2D5 /* CYShowCaseFilterViewController.m */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		E566FD5A15B00B6E0080D2D5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E566FD6315B00B6E0080D2D5 /* libGPUImage.a */,
+				E566FD6515B00B6E0080D2D5 /* GPUImageTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E566F79B15AFF7640080D2D5 /* CYFilter */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E566F7B415AFF7640080D2D5 /* Build configuration list for PBXNativeTarget "CYFilter" */;
+			buildPhases = (
+				E566F79815AFF7640080D2D5 /* Sources */,
+				E566F79915AFF7640080D2D5 /* Frameworks */,
+				E566F79A15AFF7640080D2D5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E566FD6915B00C3B0080D2D5 /* PBXTargetDependency */,
+			);
+			name = CYFilter;
+			productName = CYFilter;
+			productReference = E566F79C15AFF7640080D2D5 /* CYFilter.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E566F79315AFF7630080D2D5 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0430;
+				ORGANIZATIONNAME = renren;
+			};
+			buildConfigurationList = E566F79615AFF7630080D2D5 /* Build configuration list for PBXProject "CYFilter" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = E566F79115AFF7630080D2D5;
+			productRefGroup = E566F79D15AFF7640080D2D5 /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = E566FD5A15B00B6E0080D2D5 /* Products */;
+					ProjectRef = E566FD5915B00B6E0080D2D5 /* GPUImage.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				E566F79B15AFF7640080D2D5 /* CYFilter */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		E566FD6315B00B6E0080D2D5 /* libGPUImage.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libGPUImage.a;
+			remoteRef = E566FD6215B00B6E0080D2D5 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		E566FD6515B00B6E0080D2D5 /* GPUImageTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = GPUImageTests.octest;
+			remoteRef = E566FD6415B00B6E0080D2D5 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E566F79A15AFF7640080D2D5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E566F7AB15AFF7640080D2D5 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E566F79815AFF7640080D2D5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E566F7AD15AFF7640080D2D5 /* main.m in Sources */,
+				E566F7B115AFF7640080D2D5 /* AppDelegate.m in Sources */,
+				E566F93015AFF8480080D2D5 /* CYMainViewController.m in Sources */,
+				E566F94F15B0041F0080D2D5 /* CYShowCaseFilterViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E566FD6915B00C3B0080D2D5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = GPUImage;
+			targetProxy = E566FD6815B00C3B0080D2D5 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		E566F7A915AFF7640080D2D5 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E566F7AA15AFF7640080D2D5 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		E566F7B215AFF7640080D2D5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		E566F7B315AFF7640080D2D5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		E566F7B515AFF7640080D2D5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "CYFilter/CYFilter-Prefix.pch";
+				HEADER_SEARCH_PATHS = "framework/**";
+				INFOPLIST_FILE = "CYFilter/CYFilter-Info.plist";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "framework/**";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		E566F7B615AFF7640080D2D5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "CYFilter/CYFilter-Prefix.pch";
+				HEADER_SEARCH_PATHS = "../framework/**";
+				INFOPLIST_FILE = "CYFilter/CYFilter-Info.plist";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "framework/**";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E566F79615AFF7630080D2D5 /* Build configuration list for PBXProject "CYFilter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E566F7B215AFF7640080D2D5 /* Debug */,
+				E566F7B315AFF7640080D2D5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E566F7B415AFF7640080D2D5 /* Build configuration list for PBXNativeTarget "CYFilter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E566F7B515AFF7640080D2D5 /* Debug */,
+				E566F7B615AFF7640080D2D5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E566F79315AFF7630080D2D5 /* Project object */;
+}
