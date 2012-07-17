@@ -57,8 +57,8 @@
  */
 - (void)onClickStartButton{
 	CYShowCaseFilterViewController *showCaseFilterViewController = [[CYShowCaseFilterViewController alloc]init];
-//	[self presentModalViewController:showCaseFilterViewController animated:YES];
-	[self.navigationController pushViewController:showCaseFilterViewController animated:YES];
+	[self presentModalViewController:showCaseFilterViewController animated:YES];
+//	[self.navigationController pushViewController:showCaseFilterViewController animated:YES];
 	[showCaseFilterViewController release];
 }
 

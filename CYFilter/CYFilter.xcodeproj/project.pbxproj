@@ -24,6 +24,11 @@
 		E5A59EFC15B0320A005CFE0A /* SYPImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5A59EFB15B0320A005CFE0A /* SYPImagePickerController.m */; };
 		E5A5A10915B41C9E005CFE0A /* CYFiltersManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E5A5A10815B41C9E005CFE0A /* CYFiltersManager.m */; };
 		E5A5A10C15B4FF96005CFE0A /* filters.json in Resources */ = {isa = PBXBuildFile; fileRef = E5A5A10B15B4FF96005CFE0A /* filters.json */; };
+		E5BF4FC215B56B1100F017D5 /* curvies.png in Resources */ = {isa = PBXBuildFile; fileRef = E5BF4FAF15B56B1100F017D5 /* curvies.png */; };
+		E5BF4FC315B56B1100F017D5 /* dotletterstiles.png in Resources */ = {isa = PBXBuildFile; fileRef = E5BF4FB015B56B1100F017D5 /* dotletterstiles.png */; };
+		E5BF4FC415B56B1100F017D5 /* mask.png in Resources */ = {isa = PBXBuildFile; fileRef = E5BF4FB115B56B1100F017D5 /* mask.png */; };
+		E5BF4FC515B56B1100F017D5 /* squares.png in Resources */ = {isa = PBXBuildFile; fileRef = E5BF4FB215B56B1100F017D5 /* squares.png */; };
+		E5BF4FC615B56B1100F017D5 /* voroni_points2.png in Resources */ = {isa = PBXBuildFile; fileRef = E5BF4FB315B56B1100F017D5 /* voroni_points2.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +82,11 @@
 		E5A5A10815B41C9E005CFE0A /* CYFiltersManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CYFiltersManager.m; path = Classes/CYFiltersManager.m; sourceTree = "<group>"; };
 		E5A5A10A15B42188005CFE0A /* CYUserMacroDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CYUserMacroDefine.h; path = Classes/CYUserMacroDefine.h; sourceTree = "<group>"; };
 		E5A5A10B15B4FF96005CFE0A /* filters.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = filters.json; sourceTree = "<group>"; };
+		E5BF4FAF15B56B1100F017D5 /* curvies.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = curvies.png; path = Resources/curvies.png; sourceTree = "<group>"; };
+		E5BF4FB015B56B1100F017D5 /* dotletterstiles.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dotletterstiles.png; path = Resources/dotletterstiles.png; sourceTree = "<group>"; };
+		E5BF4FB115B56B1100F017D5 /* mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = mask.png; path = Resources/mask.png; sourceTree = "<group>"; };
+		E5BF4FB215B56B1100F017D5 /* squares.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = squares.png; path = Resources/squares.png; sourceTree = "<group>"; };
+		E5BF4FB315B56B1100F017D5 /* voroni_points2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = voroni_points2.png; path = Resources/voroni_points2.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +148,7 @@
 				E566F93115AFF8590080D2D5 /* Classes */,
 				E566F7AF15AFF7640080D2D5 /* AppDelegate.h */,
 				E566F7B015AFF7640080D2D5 /* AppDelegate.m */,
+				E5BF4F9415B56AD500F017D5 /* Resources */,
 				E566F7A715AFF7640080D2D5 /* Supporting Files */,
 			);
 			path = CYFilter;
@@ -178,6 +189,18 @@
 				E566FD6515B00B6E0080D2D5 /* GPUImageTests.octest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		E5BF4F9415B56AD500F017D5 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				E5BF4FAF15B56B1100F017D5 /* curvies.png */,
+				E5BF4FB015B56B1100F017D5 /* dotletterstiles.png */,
+				E5BF4FB115B56B1100F017D5 /* mask.png */,
+				E5BF4FB215B56B1100F017D5 /* squares.png */,
+				E5BF4FB315B56B1100F017D5 /* voroni_points2.png */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -257,6 +280,11 @@
 			files = (
 				E566F7AB15AFF7640080D2D5 /* InfoPlist.strings in Resources */,
 				E5A5A10C15B4FF96005CFE0A /* filters.json in Resources */,
+				E5BF4FC215B56B1100F017D5 /* curvies.png in Resources */,
+				E5BF4FC315B56B1100F017D5 /* dotletterstiles.png in Resources */,
+				E5BF4FC415B56B1100F017D5 /* mask.png in Resources */,
+				E5BF4FC515B56B1100F017D5 /* squares.png in Resources */,
+				E5BF4FC615B56B1100F017D5 /* voroni_points2.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
