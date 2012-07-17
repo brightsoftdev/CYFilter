@@ -24,11 +24,11 @@
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
-//	CYMainViewController *mainViewController = [[CYMainViewController alloc]init];
-//	UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:mainViewController];
-//	[self.window addSubview:nav.view];
-	SYPImagePickerController *pickerController = [[SYPImagePickerController alloc]init];
-	self.window.rootViewController = pickerController;
+	CYMainViewController *mainViewController = [[CYMainViewController alloc]init];
+	UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:mainViewController];
+	[self.window addSubview:nav.view];
+//	SYPImagePickerController *pickerController = [[SYPImagePickerController alloc]init];
+//	self.window.rootViewController = pickerController;
 	
     [self.window makeKeyAndVisible];
     return YES;
