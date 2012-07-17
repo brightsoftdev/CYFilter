@@ -102,7 +102,13 @@ typedef enum {
 	
 	GPUImageShowcaseFilterType filterType;
     __unsafe_unretained UISlider *_filterSettingsSlider;
+	
+	@private
+	UIScrollView *_filterSelectScrollView;
+	GPUImageView *filterView;
 }
+@property(nonatomic,retain)UIScrollView *filterSelectScrollView;
+@property(nonatomic,retain)GPUImageView *filterView;
 
 @property(readwrite, unsafe_unretained, nonatomic) UISlider *filterSettingsSlider;
 

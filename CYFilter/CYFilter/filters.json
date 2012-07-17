@@ -30,10 +30,10 @@
 		"previewImage": "filterExampleSutro.png",
     },
     {
-        "filterName": "Toaster",
-        "filterAction": "e05",
+        "filterName": "Emboss",
+        "filterAction": "GPUImageEmbossFilter",
         "filterType": 5,
-		"previewImage": "filterExampleToaster.png",
+		"previewImage": "filterExampleEmboss.png",
 		"value":0.5
 
     },
