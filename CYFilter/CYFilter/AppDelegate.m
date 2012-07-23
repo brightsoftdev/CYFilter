@@ -8,7 +8,6 @@
 
 #import "AppDelegate.h"
 #import "CYMainViewController.h"
-#import "SYPImagePickerController.h"
 @implementation AppDelegate
 
 @synthesize window = _window;

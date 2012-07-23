@@ -7,8 +7,8 @@
 //
 
 #import "CYMainViewController.h"
-#import "CYShowCaseFilterViewController.h"
-
+#import "CYImagePickController.h"
+#import "CYImagePickerController.h"
 @interface CYMainViewController ()
 
 @end
@@ -56,10 +56,15 @@
  * 测试按钮点击
  */
 - (void)onClickStartButton{
-	CYShowCaseFilterViewController *showCaseFilterViewController = [[CYShowCaseFilterViewController alloc]init];
+//	CYImagePickController *showCaseFilterViewController = [[CYImagePickController alloc]init];
+//	[self presentModalViewController:showCaseFilterViewController animated:YES];
+////	[self.navigationController pushViewController:showCaseFilterViewController animated:YES];
+//	[showCaseFilterViewController release];
+	CYImagePickerController *showCaseFilterViewController = [[CYImagePickerController alloc]init];
 	[self presentModalViewController:showCaseFilterViewController animated:YES];
-//	[self.navigationController pushViewController:showCaseFilterViewController animated:YES];
+	//	[self.navigationController pushViewController:showCaseFilterViewController animated:YES];
 	[showCaseFilterViewController release];
+
 }
 
 - (void)viewDidLoad

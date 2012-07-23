@@ -1,112 +1,26 @@
 [
 	{
         "filterName": "Sharpen",
-        "filterType": 1,
         "filterAction": "GPUImageSharpenFilter",
-		"previewImage": "filterExampleSharpen.png",
-		"value":0.6
-
+		"filterType": 1,
+		"previewImage": "filterExampleSharpen.png"
     },
     {
         "filterName": "SepiaTone",
         "filterAction": "GPUImageSepiaFilter",
         "filterType": 2,
-		"previewImage": "filterExampleSepiaTone.png",
-		"value":0.8
-
+		"previewImage": "filterExampleSepiaTone.png"
     },
     {
         "filterName": "Crosshatch",
         "filterAction": "GPUImageCrosshatchFilter",
         "filterType": 3,
-		"previewImage": "filterExampleCrosshatch.png",
-		"value":0.03,
-		"value1":0.03
+		"previewImage": "filterExampleCrosshatch.png"
     },
     {
         "filterName": "Sketch",
         "filterAction": "GPUImageSketchFilter",
         "filterType": 4,
-		"previewImage": "filterExampleSutro.png",
-    },
-    {
-        "filterName": "Emboss",
-        "filterAction": "GPUImageEmbossFilter",
-        "filterType": 5,
-		"previewImage": "filterExampleEmboss.png",
-		"value":0.5
-
-    },
-    {
-        "filterName": "Inkwell",
-        "filterAction": "e06",
-        "filterType": 6,
-		"previewImage": "filterExampleBW.png",
-		"value":0.5
-
-    },
-    {
-        "filterName": "Walden",
-        "filterAction": "e07",
-        "filterType": 7,
-		"previewImage": "filterExampleWalden.png",
-		"value":0.5
- 
-    },
-    {
-        "filterName": "Hefe",
-        "filterAction": "e08",
-        "filterType": 8,
-		"previewImage": "filterExampleHefe.png",
-		"value":0.5
-
-    },
-    {
-        "filterName": "Apollo",
-        "filterAction": "e09",
-        "filterType": 4,
-		"previewImage": "filterExampleLGM.png",
-		"value":0.5
-
-    },
-    {
-        "filterName": "Poprocket",
-        "filterAction": "e10",
-        "filterType": 9,
-		"previewImage": "filterExamplePopRocks.png",
-		"value":0.5
-
-    },	
-    {
-        "filterName": "Nashville",
-        "filterAction": "GPUImageSharpenFilter", 
-        "filterType": 10,
-		"previewImage": "filterExampleNashville.png",
-		"value":0.4
-
-    },
-    {
-        "filterName": "Gotham",
-        "filterAction": "e12",
-        "filterType": 11,
-		"previewImage": "filterExampleInky.png",
-		"value":0.5
-
-    },
-    {
-        "filterName": "1977",
-        "filterAction": "e13",
-        "filterType": 12,
-		"previewImage": "filterExample1977.png",
-		"value":0.5
-
-    },
-    {
-        "filterName": "Lord Kelvin",
-        "filterAction": "e14",
-        "filterType": 13,
-		"previewImage": "filterExampleLordKelvin.png",
-		"value":0.5
-
+		"previewImage": "filterExampleSutro.png"
     }
 ]

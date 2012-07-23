@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E51C970915BCF869002871F9 /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = E51C96FF15BCF869002871F9 /* NSObject+SBJSON.m */; };
+		E51C970A15BCF869002871F9 /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = E51C970115BCF869002871F9 /* NSString+SBJSON.m */; };
+		E51C970B15BCF869002871F9 /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = E51C970415BCF869002871F9 /* SBJsonBase.m */; };
+		E51C970C15BCF869002871F9 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = E51C970615BCF869002871F9 /* SBJsonParser.m */; };
+		E51C970D15BCF869002871F9 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = E51C970815BCF869002871F9 /* SBJsonWriter.m */; };
 		E566F7A115AFF7640080D2D5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E566F7A015AFF7640080D2D5 /* UIKit.framework */; };
 		E566F7A315AFF7640080D2D5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E566F7A215AFF7640080D2D5 /* Foundation.framework */; };
 		E566F7A515AFF7640080D2D5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E566F7A415AFF7640080D2D5 /* CoreGraphics.framework */; };
@@ -21,7 +26,7 @@
 		E566FD7F15B0108F0080D2D5 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E566FD7E15B0108F0080D2D5 /* CoreMedia.framework */; };
 		E566FD8115B010A40080D2D5 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E566FD8015B010A40080D2D5 /* CoreVideo.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		E566FD8315B010B40080D2D5 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E566FD8215B010B40080D2D5 /* QuartzCore.framework */; };
-		E5A59EFC15B0320A005CFE0A /* SYPImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5A59EFB15B0320A005CFE0A /* SYPImagePickerController.m */; };
+		E595360515B930F70027922B /* CYImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = E595360415B930F70027922B /* CYImagePickerController.m */; };
 		E5A5A10915B41C9E005CFE0A /* CYFiltersManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E5A5A10815B41C9E005CFE0A /* CYFiltersManager.m */; };
 		E5A5A10C15B4FF96005CFE0A /* filters.json in Resources */ = {isa = PBXBuildFile; fileRef = E5A5A10B15B4FF96005CFE0A /* filters.json */; };
 		E5BF4FC215B56B1100F017D5 /* curvies.png in Resources */ = {isa = PBXBuildFile; fileRef = E5BF4FAF15B56B1100F017D5 /* curvies.png */; };
@@ -56,6 +61,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E51C96FE15BCF869002871F9 /* NSObject+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJSON.h"; sourceTree = "<group>"; };
+		E51C96FF15BCF869002871F9 /* NSObject+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJSON.m"; sourceTree = "<group>"; };
+		E51C970015BCF869002871F9 /* NSString+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SBJSON.h"; sourceTree = "<group>"; };
+		E51C970115BCF869002871F9 /* NSString+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+SBJSON.m"; sourceTree = "<group>"; };
+		E51C970215BCF869002871F9 /* SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJSON.h; sourceTree = "<group>"; };
+		E51C970315BCF869002871F9 /* SBJsonBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonBase.h; sourceTree = "<group>"; };
+		E51C970415BCF869002871F9 /* SBJsonBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonBase.m; sourceTree = "<group>"; };
+		E51C970515BCF869002871F9 /* SBJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonParser.h; sourceTree = "<group>"; };
+		E51C970615BCF869002871F9 /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonParser.m; sourceTree = "<group>"; };
+		E51C970715BCF869002871F9 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
+		E51C970815BCF869002871F9 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
 		E566F79C15AFF7640080D2D5 /* CYFilter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CYFilter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E566F7A015AFF7640080D2D5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		E566F7A215AFF7640080D2D5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -68,7 +84,6 @@
 		E566F7B015AFF7640080D2D5 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		E566F92E15AFF8480080D2D5 /* CYMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CYMainViewController.h; path = Classes/CYMainViewController.h; sourceTree = "<group>"; };
 		E566F92F15AFF8480080D2D5 /* CYMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CYMainViewController.m; path = Classes/CYMainViewController.m; sourceTree = "<group>"; };
-		E566F94D15B0041F0080D2D5 /* CYShowCaseFilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CYShowCaseFilterViewController.h; path = Classes/CYShowCaseFilterViewController.h; sourceTree = "<group>"; };
 		E566F94E15B0041F0080D2D5 /* CYShowCaseFilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CYShowCaseFilterViewController.m; path = Classes/CYShowCaseFilterViewController.m; sourceTree = "<group>"; };
 		E566FD5915B00B6E0080D2D5 /* GPUImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GPUImage.xcodeproj; path = framework/GPUImage.xcodeproj; sourceTree = "<group>"; };
 		E566FD7A15B0106F0080D2D5 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -76,8 +91,9 @@
 		E566FD7E15B0108F0080D2D5 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		E566FD8015B010A40080D2D5 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		E566FD8215B010B40080D2D5 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		E5A59EFA15B0320A005CFE0A /* SYPImagePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SYPImagePickerController.h; path = Classes/SYPImagePickerController.h; sourceTree = "<group>"; };
-		E5A59EFB15B0320A005CFE0A /* SYPImagePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SYPImagePickerController.m; path = Classes/SYPImagePickerController.m; sourceTree = "<group>"; };
+		E595360215B930AA0027922B /* CYImagePickController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CYImagePickController.h; path = Classes/CYImagePickController.h; sourceTree = "<group>"; };
+		E595360315B930F70027922B /* CYImagePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CYImagePickerController.h; path = Classes/CYImagePickerController.h; sourceTree = "<group>"; };
+		E595360415B930F70027922B /* CYImagePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CYImagePickerController.m; path = Classes/CYImagePickerController.m; sourceTree = "<group>"; };
 		E5A5A10715B41C9D005CFE0A /* CYFiltersManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CYFiltersManager.h; path = Classes/CYFiltersManager.h; sourceTree = "<group>"; };
 		E5A5A10815B41C9E005CFE0A /* CYFiltersManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CYFiltersManager.m; path = Classes/CYFiltersManager.m; sourceTree = "<group>"; };
 		E5A5A10A15B42188005CFE0A /* CYUserMacroDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CYUserMacroDefine.h; path = Classes/CYUserMacroDefine.h; sourceTree = "<group>"; };
@@ -109,6 +125,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E51C96E815BCF6E7002871F9 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				E51C96FD15BCF869002871F9 /* JSON */,
+			);
+			name = Common;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		E51C96FD15BCF869002871F9 /* JSON */ = {
+			isa = PBXGroup;
+			children = (
+				E51C96FE15BCF869002871F9 /* NSObject+SBJSON.h */,
+				E51C96FF15BCF869002871F9 /* NSObject+SBJSON.m */,
+				E51C970015BCF869002871F9 /* NSString+SBJSON.h */,
+				E51C970115BCF869002871F9 /* NSString+SBJSON.m */,
+				E51C970215BCF869002871F9 /* SBJSON.h */,
+				E51C970315BCF869002871F9 /* SBJsonBase.h */,
+				E51C970415BCF869002871F9 /* SBJsonBase.m */,
+				E51C970515BCF869002871F9 /* SBJsonParser.h */,
+				E51C970615BCF869002871F9 /* SBJsonParser.m */,
+				E51C970715BCF869002871F9 /* SBJsonWriter.h */,
+				E51C970815BCF869002871F9 /* SBJsonWriter.m */,
+			);
+			name = JSON;
+			path = CYFilter/Common/JSON;
+			sourceTree = "<group>";
+		};
 		E566F79115AFF7630080D2D5 = {
 			isa = PBXGroup;
 			children = (
@@ -148,6 +192,7 @@
 				E566F93115AFF8590080D2D5 /* Classes */,
 				E566F7AF15AFF7640080D2D5 /* AppDelegate.h */,
 				E566F7B015AFF7640080D2D5 /* AppDelegate.m */,
+				E51C96E815BCF6E7002871F9 /* Common */,
 				E5BF4F9415B56AD500F017D5 /* Resources */,
 				E566F7A715AFF7640080D2D5 /* Supporting Files */,
 			);
@@ -169,15 +214,15 @@
 		E566F93115AFF8590080D2D5 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				E5A59EFA15B0320A005CFE0A /* SYPImagePickerController.h */,
-				E5A59EFB15B0320A005CFE0A /* SYPImagePickerController.m */,
+				E595360215B930AA0027922B /* CYImagePickController.h */,
 				E566F92E15AFF8480080D2D5 /* CYMainViewController.h */,
 				E566F92F15AFF8480080D2D5 /* CYMainViewController.m */,
-				E566F94D15B0041F0080D2D5 /* CYShowCaseFilterViewController.h */,
 				E566F94E15B0041F0080D2D5 /* CYShowCaseFilterViewController.m */,
 				E5A5A10715B41C9D005CFE0A /* CYFiltersManager.h */,
 				E5A5A10815B41C9E005CFE0A /* CYFiltersManager.m */,
 				E5A5A10A15B42188005CFE0A /* CYUserMacroDefine.h */,
+				E595360315B930F70027922B /* CYImagePickerController.h */,
+				E595360415B930F70027922B /* CYImagePickerController.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -299,8 +344,13 @@
 				E566F7B115AFF7640080D2D5 /* AppDelegate.m in Sources */,
 				E566F93015AFF8480080D2D5 /* CYMainViewController.m in Sources */,
 				E566F94F15B0041F0080D2D5 /* CYShowCaseFilterViewController.m in Sources */,
-				E5A59EFC15B0320A005CFE0A /* SYPImagePickerController.m in Sources */,
 				E5A5A10915B41C9E005CFE0A /* CYFiltersManager.m in Sources */,
+				E595360515B930F70027922B /* CYImagePickerController.m in Sources */,
+				E51C970915BCF869002871F9 /* NSObject+SBJSON.m in Sources */,
+				E51C970A15BCF869002871F9 /* NSString+SBJSON.m in Sources */,
+				E51C970B15BCF869002871F9 /* SBJsonBase.m in Sources */,
+				E51C970C15BCF869002871F9 /* SBJsonParser.m in Sources */,
+				E51C970D15BCF869002871F9 /* SBJsonWriter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -6,16 +6,16 @@
 //  Copyright (c) 2012年 renren. All rights reserved.
 //
 
-#import "CYShowCaseFilterViewController.h"
+#import "CYImagePickController.h"
 
 #define kFilterSelectScrollViewHeigth 80 
-@interface CYShowCaseFilterViewController ()
+@interface CYImagePickController ()
 
 - (void)setUpView;
 
 @end
 
-@implementation CYShowCaseFilterViewController
+@implementation CYImagePickController
 @synthesize filterSettingsSlider = _filterSettingsSlider;
 @synthesize filterSelectScrollView = _filterSelectScrollView;
 @synthesize filterView ;
