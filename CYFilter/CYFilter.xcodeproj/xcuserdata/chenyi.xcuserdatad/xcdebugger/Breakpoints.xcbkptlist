@@ -4,33 +4,7 @@
    version = "1.0">
    <FileBreakpoints>
       <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "CYFilter/Common/JSON/SBJsonParser.m"
-         timestampString = "364711098.33234"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "71"
-         endingLineNumber = "71"
-         landmarkName = "-objectWithString:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "CYFilter/Common/JSON/SBJsonParser.m"
-         timestampString = "364711105.196475"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "73"
-         endingLineNumber = "73"
-         landmarkName = "-objectWithString:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
+         shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "CYFilter/Common/JSON/SBJsonParser.m"
@@ -39,19 +13,6 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "74"
          endingLineNumber = "74"
-         landmarkName = "-objectWithString:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "CYFilter/Common/JSON/SBJsonParser.m"
-         timestampString = "364711108.514748"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "83"
-         endingLineNumber = "83"
          landmarkName = "-objectWithString:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -72,52 +33,26 @@
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "CYFilter/Common/JSON/SBJsonParser.m"
-         timestampString = "364711113.643724"
+         filePath = "CYFilter/Classes/CYImagePickerController.m"
+         timestampString = "364794689.645539"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "96"
-         endingLineNumber = "96"
-         landmarkName = "-objectWithString:"
+         startingLineNumber = "646"
+         endingLineNumber = "646"
+         landmarkName = "-additionFilterInit"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "CYFilter/Common/JSON/SBJsonParser.m"
-         timestampString = "364711114.980013"
+         filePath = "CYFilter/Classes/CYImagePickerController.m"
+         timestampString = "364794723.557148"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "100"
-         endingLineNumber = "100"
-         landmarkName = "-objectWithString:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "CYFilter/Common/JSON/SBJsonParser.m"
-         timestampString = "364711293.543275"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "123"
-         endingLineNumber = "123"
-         landmarkName = "-scanValue:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "CYFilter/Common/JSON/SBJsonParser.m"
-         timestampString = "364711295.245355"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "126"
-         endingLineNumber = "126"
-         landmarkName = "-scanValue:"
+         startingLineNumber = "288"
+         endingLineNumber = "288"
+         landmarkName = "-viewDidAppear:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

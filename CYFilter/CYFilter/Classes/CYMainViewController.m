@@ -47,7 +47,7 @@
 		[startButton setTitle:@"开始" forState:(UIControlStateHighlighted | UIControlStateSelected ) ];
 		[startButton addTarget:self action:@selector(onClickStartButton) forControlEvents:UIControlEventTouchUpInside];
 		startButton.backgroundColor = [UIColor clearColor];
-		_startButton = startButton;
+		_startButton = [startButton retain];
 	}
 	return _startButton;
 }

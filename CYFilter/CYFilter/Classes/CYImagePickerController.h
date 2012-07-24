@@ -10,7 +10,7 @@
 #import "GPUImage.h"
 
 typedef enum {
-	GPUIMAGE_NONE,//无滤镜
+	GPUIMAGE_NONE = 0,//无滤镜
     GPUIMAGE_SATURATION,
     GPUIMAGE_CONTRAST,
     GPUIMAGE_BRIGHTNESS,
@@ -90,7 +90,8 @@ typedef enum {
     GPUIMAGE_UIELEMENT,
     GPUIMAGE_FILECONFIG,
     GPUIMAGE_FILTERGROUP,
-    GPUIMAGE_NUMFILTERS
+    GPUIMAGE_NUMFILTERS,
+	GPUIMAGE_LAST //最后一个标记
 } GPUImageShowcaseFilterType; 
 
 
@@ -129,7 +130,10 @@ typedef enum {
 @property(nonatomic,retain)NSArray *jsonObjectArray;
 
 @property(nonatomic,retain)UIButton *turnCameraDeviceButton;
+@property(nonatomic,retain)UIView *bottomBarView;
+@property(nonatomic,retain)UIButton *startCaptureButton;
 @property(nonatomic,retain)UIScrollView * filterSelectScrollView;
+
 @property(nonatomic,retain)GPUImageOutput<GPUImageInput> *filterFront;
 @property(nonatomic,retain)GPUImageOutput<GPUImageInput> *filterBack;
 @property(nonatomic,retain)GPUImageView *filterFrontView;

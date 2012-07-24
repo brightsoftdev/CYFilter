@@ -14,6 +14,8 @@ static const CGFloat kFilterSelectViewWidth  = 320;
 static const CGFloat kBottomBarViewHeight = 40;
 static const CGFloat kBottomBarViewWidth = 320;
 
+static const NSDictionary *filterTypeDic;
+
 @interface CYImagePickerController ()
 
 @end
@@ -27,6 +29,8 @@ static const CGFloat kBottomBarViewWidth = 320;
 @synthesize filterFront = _filterFront;
 @synthesize filterBack = _filterBack;
 @synthesize turnCameraDeviceButton = _turnCameraDeviceButton;
+@synthesize bottomBarView = _bottomBarView;
+@synthesize startCaptureButton = _startCaptureButton;
 @synthesize filterSelectScrollView = _filterSelectScrollView;
 @synthesize filterClasssNameString = _filterClassNameString;
 @synthesize cameraCaptureMode ;
@@ -35,6 +39,7 @@ static const CGFloat kBottomBarViewWidth = 320;
 
 - (void)dealloc{
 	[super dealloc];
+	CY_RELEASE_SAFELY(filterTypeDic);
 	CY_RELEASE_SAFELY(_jsonObjectArray);
 	CY_RELEASE_SAFELY(_localImagePickerController);
 	
@@ -92,11 +97,102 @@ static const CGFloat kBottomBarViewWidth = 320;
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+		// 此处的键值对应与GPUImageShowcaseFilterType
+		NSArray *keys = [NSArray arrayWithObjects:
+						 @"GPUIMAGE_NONE",//无滤镜
+						 @"GPUIMAGE_SATURATION",
+						 @"GPUIMAGE_CONTRAST",
+						 @"GPUIMAGE_BRIGHTNESS",
+						 @"GPUIMAGE_EXPOSURE",
+						 @"GPUIMAGE_RGB",
+						 @"GPUIMAGE_MONOCHROME",
+						 @"GPUIMAGE_SHARPEN",
+						 @"GPUIMAGE_UNSHARPMASK",
+						 @"GPUIMAGE_TRANSFORM",
+						 @"GPUIMAGE_TRANSFORM3D",
+						 @"GPUIMAGE_CROP",
+						 @"GPUIMAGE_MASK",
+						 @"GPUIMAGE_GAMMA",
+						 @"GPUIMAGE_TONECURVE",
+						 @"GPUIMAGE_HAZE",
+						 @"GPUIMAGE_SEPIA",
+						 @"GPUIMAGE_COLORINVERT",
+						 @"GPUIMAGE_GRAYSCALE",
+						 @"GPUIMAGE_HISTOGRAM",
+						 @"GPUIMAGE_THRESHOLD",
+						 @"GPUIMAGE_ADAPTIVETHRESHOLD",
+						 @"GPUIMAGE_PIXELLATE",
+						 @"GPUIMAGE_POLARPIXELLATE",
+						 @"GPUIMAGE_CROSSHATCH",
+						 @"GPUIMAGE_SOBELEDGEDETECTION",
+						 @"GPUIMAGE_PREWITTEDGEDETECTION",
+						 @"GPUIMAGE_CANNYEDGEDETECTION",
+						 @"GPUIMAGE_XYGRADIENT",
+						 @"GPUIMAGE_HARRISCORNERDETECTION",
+						 @"GPUIMAGE_NOBLECORNERDETECTION",
+						 @"GPUIMAGE_SHITOMASIFEATUREDETECTION",
+						 @"GPUIMAGE_BUFFER",
+						 @"GPUIMAGE_SKETCH",
+						 @"GPUIMAGE_TOON",
+						 @"GPUIMAGE_SMOOTHTOON",
+						 @"GPUIMAGE_TILTSHIFT",
+						 @"GPUIMAGE_CGA",
+						 @"GPUIMAGE_POSTERIZE",
+						 @"GPUIMAGE_CONVOLUTION",
+						 @"GPUIMAGE_EMBOSS",
+						 @"GPUIMAGE_KUWAHARA",
+						 @"GPUIMAGE_VIGNETTE",
+						 @"GPUIMAGE_GAUSSIAN",
+						 @"GPUIMAGE_GAUSSIAN_SELECTIVE",
+						 @"GPUIMAGE_FASTBLUR",
+						 @"GPUIMAGE_BOXBLUR",
+						 @"GPUIMAGE_MEDIAN",
+						 @"GPUIMAGE_BILATERAL",
+						 @"GPUIMAGE_SWIRL",
+						 @"GPUIMAGE_BULGE",
+						 @"GPUIMAGE_PINCH",
+						 @"GPUIMAGE_SPHEREREFRACTION",
+						 @"GPUIMAGE_STRETCH",
+						 @"GPUIMAGE_DILATION",
+						 @"GPUIMAGE_EROSION",
+						 @"GPUIMAGE_OPENING",
+						 @"GPUIMAGE_CLOSING",
+						 @"GPUIMAGE_PERLINNOISE",
+						 @"GPUIMAGE_VORONI",
+						 @"GPUIMAGE_MOSAIC",
+						 @"GPUIMAGE_DISSOLVE",
+						 @"GPUIMAGE_CHROMAKEY",
+						 @"GPUIMAGE_MULTIPLY",
+						 @"GPUIMAGE_OVERLAY",
+						 @"GPUIMAGE_LIGHTEN",
+						 @"GPUIMAGE_DARKEN",
+						 @"GPUIMAGE_COLORBURN",
+						 @"GPUIMAGE_COLORDODGE",
+						 @"GPUIMAGE_SCREENBLEND",
+						 @"GPUIMAGE_DIFFERENCEBLEND",
+						 @"GPUIMAGE_SUBTRACTBLEND",
+						 @"GPUIMAGE_EXCLUSIONBLEND",
+						 @"GPUIMAGE_HARDLIGHTBLEND",
+						 @"GPUIMAGE_SOFTLIGHTBLEND",
+						 @"GPUIMAGE_OPACITY",
+						 @"GPUIMAGE_CUSTOM",
+						 @"GPUIMAGE_UIELEMENT",
+						 @"GPUIMAGE_FILECONFIG",
+						 @"GPUIMAGE_FILTERGROUP",
+						 @"GPUIMAGE_NUMFILTERS",
+						
+						 nil];
+		NSMutableArray *objects = [NSMutableArray arrayWithCapacity:keys.count];
+		for (int i = 0 ; i < keys.count; i ++) {
+			NSNumber *keyIndex = [NSNumber numberWithInt:i];
+			[objects addObject:keyIndex];
+		}
+		filterTypeDic = [[NSDictionary alloc]initWithObjects:objects forKeys:keys];
     }
     return self;
 }
 
-#pragma mark - common set filters
+#pragma mark - common init filters
 /*
  *	初始化滤镜的一些操作
  */
@@ -112,18 +208,19 @@ static const CGFloat kBottomBarViewWidth = 320;
 		_stillCameraBack = [[GPUImageStillCamera alloc]init];
 		_stillCameraBack.outputImageOrientation = UIInterfaceOrientationPortrait;
 		
-//		_stillCameraBack.runBenchmark = YES;
+		_stillCameraBack.runBenchmark = YES;
 	}
 	if (!_stillCameraFront) {
 		_stillCameraFront = [[GPUImageStillCamera alloc]initWithSessionPreset:AVCaptureSessionPreset640x480 cameraPosition:AVCaptureDevicePositionFront];
 		_stillCameraFront = [[GPUImageStillCamera alloc]init];
 		_stillCameraFront.outputImageOrientation = UIInterfaceOrientationPortrait;
 		
-//		_stillCameraFront.runBenchmark = YES;
+		_stillCameraFront.runBenchmark = YES;
 	}
 	//默认是无滤镜效果
 	//	self.filterType = GPUIMAGE_NONE;
-	self.filterType = GPUIMAGE_SATURATION;
+//	self.filterType = GPUIMAGE_SATURATION;
+	self.filterClasssNameString = @"GPUImageSepiaFilter";
 }
 
 #pragma mark - view life
@@ -136,6 +233,7 @@ static const CGFloat kBottomBarViewWidth = 320;
 	//滤镜初始化
 	[self commonInitFilter];
 	
+		
 	//照片预览图 前
 	[self.view addSubview:self.filterFrontView];
 	//照片预览图 后
@@ -146,6 +244,9 @@ static const CGFloat kBottomBarViewWidth = 320;
 	
 	//选择列表
 	[self.view addSubview:self.filterSelectScrollView];
+	
+	//底部布局
+	[self.view addSubview:self.bottomBarView];
 }
 
 - (void)viewDidLoad
@@ -172,8 +273,24 @@ static const CGFloat kBottomBarViewWidth = 320;
 	CY_RELEASE_SAFELY(_filterBackView);
 }
 
+
+/*
+	加载完毕
+ */
+- (void)viewDidAppear:(BOOL)animated{
+	[super viewDidAppear:animated];
+	//添加一个相机的动画
+	CATransition *transition = [CATransition animation];
+	transition.type = @"cameraIrisHollowOpen";
+	transition.duration = 0.3;
+	transition.timingFunction = [CAMediaTimingFunction functionWithName:@"easeIn"];;
+	[_filterFrontView.layer addAnimation:transition forKey:@"open"];
+	[_filterBackView.layer addAnimation:transition forKey:@"open"];
+
+}
 - (void)viewWillDisappear:(BOOL)animated{
 	[super viewWillDisappear:animated];
+	
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -210,6 +327,8 @@ static const CGFloat kBottomBarViewWidth = 320;
 																		screen.bounds.size.height - kBottomBarViewHeight )];
 		NSLog(@"filterView.fram = %@",_filterFrontView.frame);
 		_filterFrontView.backgroundColor = [UIColor clearColor];
+		NSLog(@"%d camera retain count",[_filterFrontView retainCount]);
+
 	}
 	return _filterFrontView;
 
@@ -223,7 +342,7 @@ static const CGFloat kBottomBarViewWidth = 320;
 	if (!_filterSelectScrollView) {
 		
 		NSInteger size = kFilterSelectViewHeight;
-		UIScrollView *filterSelectView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 480 - size, 320, size)];
+		UIScrollView *filterSelectView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 440 - size, 320, size)];
 		filterSelectView.userInteractionEnabled = YES;
 		filterSelectView.backgroundColor = [UIColor redColor];
 		NSInteger count = kFiltersCount;
@@ -251,6 +370,9 @@ static const CGFloat kBottomBarViewWidth = 320;
 	return _filterSelectScrollView;
 }
 
+/*
+	切换摄像头按钮
+ */
 - (UIButton *)turnCameraDeviceButton{
 	if (!_turnCameraDeviceButton) {
 		UIButton *turnCameraDeviceButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -271,21 +393,56 @@ static const CGFloat kBottomBarViewWidth = 320;
 		
 }
 
+- (UIView *)bottomBarView{
+	if (!_bottomBarView) {
+		UIView *bottomBarView = [[UIView alloc]initWithFrame:CGRectMake(0, 
+																	   480 - kBottomBarViewHeight,
+																	   kBottomBarViewWidth, 
+																	   kBottomBarViewHeight)];
+		bottomBarView.backgroundColor = [UIColor grayColor];
+		bottomBarView.alpha = 0.7;
+		bottomBarView.userInteractionEnabled = YES;
+		_bottomBarView = bottomBarView;
+		[_bottomBarView addSubview:self.startCaptureButton];
+	}
+	return _bottomBarView;
+}
+
+- (UIButton *)startCaptureButton{
+	if (!_startCaptureButton) {
+		UIButton *startCaptureButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+		[startCaptureButton setTintColor:[UIColor grayColor]];
+		[startCaptureButton setTitle:@"拍照"forState:UIControlStateNormal];
+		[startCaptureButton setBackgroundColor:[UIColor clearColor]];
+		startCaptureButton.frame = CGRectMake((kBottomBarViewWidth - 50)/2.0,
+											  (kBottomBarViewHeight - 30)/2.0,
+											  50, 
+											  30);
+		[startCaptureButton addTarget:self action:@selector(takeOnePicture:) forControlEvents:UIControlEventTouchUpInside];
+		
+		_startCaptureButton = [startCaptureButton retain];
+	}
+	return _startCaptureButton;
+}
 
 
-#pragma mark - event action
+#pragma mark - other
 
 /*	
-	json解析出来的数组，每个元素是一个dictionary
+ json解析出来的数组，每个元素是一个dictionary
  */
 - (NSArray *)jsonObjectArray{
 	if (!_jsonObjectArray) {
 		NSString * filePath = [[NSBundle mainBundle] pathForResource:@"filters" ofType:@"json"];  
 		NSString * jsonString = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
 		_jsonObjectArray = [[[[SBJsonParser alloc] init] objectWithString:jsonString] retain];
+		NSLog(@"json data == %@",[_jsonObjectArray description]);
 	}
 	return _jsonObjectArray;
 }
+
+#pragma mark - event action
+
 
 /*	
 	滤镜选中事件
@@ -293,8 +450,25 @@ static const CGFloat kBottomBarViewWidth = 320;
 - (void)selectFilter:(id)sender{
 	NSInteger index = ((UIButton *)sender).tag;
 	if (index < self.jsonObjectArray.count) {
-		NSString *filterClassNameString = [[self.jsonObjectArray objectAtIndex:((UIButton *)sender).tag]objectForKey:@"filterAction"];
-		self.filterClasssNameString = filterClassNameString; //重置类名将会重置滤镜
+		id jsonObject = [self.jsonObjectArray objectAtIndex:index];
+		
+
+		NSString *typeString = [jsonObject objectForKey:@"filterTypeEnum"];
+		if (typeString) {
+			self.filterType = [[filterTypeDic objectForKey:typeString]intValue];
+		}
+		
+		NSString *filterClassNameString = [jsonObject objectForKey:@"filterAction"];
+		if (filterClassNameString) {
+			self.filterClasssNameString = filterClassNameString; //重置类名将会重置滤镜
+		}
+		
+		if ([jsonObject objectForKey:@"value"]) {
+			//	更新滤镜参数值
+			float value = [[jsonObject objectForKey:@"value"]floatValue];
+			[self updateFilterValue:value];
+		}
+		
 	}
 	
 }
@@ -316,7 +490,11 @@ static const CGFloat kBottomBarViewWidth = 320;
 	NSInteger index2 = [subViewsArray indexOfObject:self.filterBackView];
 	
 	if (UIImagePickerControllerCameraDeviceRear == self.cameraDevice) { 
-		// 如果当前是后摄像头
+		
+		if (![UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceFront]) {
+			return; //如果前摄像头不可用
+		}
+		
 		self.cameraDevice = UIImagePickerControllerCameraDeviceFront;
 		transtion.subtype = kCATransitionFromRight;   /* 动画方向*/
 		
@@ -348,78 +526,82 @@ static const CGFloat kBottomBarViewWidth = 320;
 	[self.filterBackView.layer addAnimation:transtion forKey:@"transitionFilterView"];
 }	
 
-#pragma mark - set 
+/*
+	将一张照片数据写入到系统的相册里
+ */
+
+- (void)saveImageToAlbum:(id)data{
+	UIImage *image = [UIImage imageWithData:data];
+	NSLog(@"height = %f width = %f",image.size.height,image.size.height);
+	UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
+}
+/*
+	拍摄一张照片并记录
+ */
+- (void)takeOnePicture:(id)sender{
+	
+	//添加一个相机关闭的动画
+	CATransition *transition = [CATransition animation];
+	transition.type = @"cameraIrisHollowClose";
+	transition.duration = 0.4;
+	transition.timingFunction = UIViewAnimationCurveEaseInOut;
+	
+	__block GPUImageStillCamera *stillCamera = nil;
+	GPUImageOutput<GPUImageInput> *filter = nil;
+	__block UIView *filterView = nil;
+	if (UIImagePickerControllerCameraDeviceRear == self.cameraDevice) {
+		filter = self.filterBack;
+		stillCamera = _stillCameraBack;
+
+		[_filterBackView.layer addAnimation:transition forKey:@"close"];
+		filterView = _filterBackView;
+	}else {
+		filter = self.filterFront;
+		stillCamera = _stillCameraFront;
+		
+		[_filterFrontView.layer addAnimation:transition forKey:@"close"];
+		filterView = _filterFrontView;
+	}
+	
+	[stillCamera pauseCameraCapture];
+	[stillCamera capturePhotoAsPNGProcessedUpToFilter:filter withCompletionHandler:^(NSData *processedPNG, NSError *error){
+		NSData *dataForPNGFile = processedPNG;
+		
+		[filterView.layer removeAllAnimations];
+		[stillCamera resumeCameraCapture];
+		NSLog(@"%d camera retain count",[stillCamera retainCount]);
+		NSLog(@"%d filterview retain count",[filterView retainCount]);
+
+		[NSThread detachNewThreadSelector:@selector(saveImageToAlbum:) toTarget:self withObject:dataForPNGFile];
+	}];
+}
+#pragma mark - setter 
 /*
 	设置滤镜类型
  */
 - (void)setFilterType:(GPUImageShowcaseFilterType)filterType{
-	switch (filterType) {
-		case GPUIMAGE_NONE:
-		{
-			self.filterClasssNameString = @"";
-		}break;
-			
-		case GPUIMAGE_SATURATION:{
-			self.filterClasssNameString = NSStringFromClass(GPUImageSaturationFilter.class);
-		}break;
-		case GPUIMAGE_SHARPEN:{
-			self.filterClasssNameString = NSStringFromClass(GPUImageSharpenFilter.class) ;
-		}break;
-		default:{
-			
-		}break;
-	}
+//	switch (filterType) {
+//		case GPUIMAGE_NONE:
+//		{
+//			self.filterClasssNameString = @"";
+//		}break;
+//			
+//		case GPUIMAGE_SATURATION:{
+//			self.filterClasssNameString = NSStringFromClass(GPUImageSaturationFilter.class);
+//		}break;
+//		case GPUIMAGE_SHARPEN:{
+//			self.filterClasssNameString = NSStringFromClass(GPUImageSharpenFilter.class) ;
+//		}break;
+//		default:{
+//			
+//		}break;
+//	}
 	
 	if (_filterType != filterType) { //与当前的type不同
 		_filterType = filterType;
 	}
 }
 
-/*
-	重置滤镜
- */
-- (void)resetFilter{
-	
-	Class filterClass = NSClassFromString(self.filterClasssNameString);
-	NSLog(@"class name == %@",self.filterClasssNameString);
-	
-	if ([filterClass.class isSubclassOfClass:GPUImageFilter.class] ) {
-		GPUImageOutput<GPUImageInput> *filterBack= [[filterClass alloc]init];
-		self.filterBack = filterBack; //重新创建滤镜类
-		CY_RELEASE_SAFELY(filterBack);
-		
-		GPUImageOutput<GPUImageInput> *filterFront= [[filterClass alloc]init];
-		self.filterFront = filterFront; //重新创建滤镜类
-		CY_RELEASE_SAFELY(filterFront);
-	}
-}
-
-/*
-	准备采集源
- */
-- (void)prepareTarget{
-	
-	//	后部摄像头滤镜设置]
-	[_stillCameraBack removeAllTargets];
-	[_stillCameraBack addTarget:self.filterBack];
-	[self.filterBack prepareForImageCapture];
-	[self.filterBack removeAllTargets];
-	[self.filterBack addTarget:self.filterBackView];
-	
-	//	前部摄像头滤镜设置
-	[_stillCameraFront removeAllTargets];
-	[_stillCameraFront addTarget:self.filterFront];
-	[self.filterFront prepareForImageCapture];
-	[self.filterFront removeAllTargets];
-	[self.filterFront addTarget:self.filterFrontView];
-	
-	//	开始采集
-	if (UIImagePickerControllerCameraDeviceRear == self.cameraDevice) { 
-		[_stillCameraBack startCameraCapture];
-	}else {
-		[_stillCameraFront startCameraCapture];
-	}
-}
 
 /*
  *	重置滤镜类名，将会使得滤镜重置
@@ -437,5 +619,235 @@ static const CGFloat kBottomBarViewWidth = 320;
 	
 	[self resetFilter];
 	[self prepareTarget];
+}
+
+#pragma mark - filter operation
+
+/*
+	附加的滤镜初始化设置
+ */
+- (void)additionFilterInit{
+	
+	switch (_filterType) {
+		case GPUIMAGE_FILTERGROUP:
+		{
+			{
+				//filter back
+				NSLog(@"filter class = %@",NSStringFromClass(self.filterFront.class ) );
+				[self.filterBack prepareForImageCapture];
+
+				GPUImageSepiaFilter *sepiaFilter = [[GPUImageSepiaFilter alloc] init];
+				[(GPUImageFilterGroup *)self.filterBack addFilter:sepiaFilter];
+				
+				GPUImagePixellateFilter *pixellateFilter = [[GPUImagePixellateFilter alloc] init];
+				[(GPUImageFilterGroup *)self.filterBack addFilter:pixellateFilter];
+				[pixellateFilter setFractionalWidthOfAPixel:0.01];
+
+				[sepiaFilter addTarget:pixellateFilter];
+				[(GPUImageFilterGroup *)self.filterBack setInitialFilters:[NSArray arrayWithObject:sepiaFilter]];
+				[(GPUImageFilterGroup *)self.filterBack setTerminalFilter:pixellateFilter];
+				
+			}
+			{
+				//filter front
+				[self.filterFront prepareForImageCapture];
+
+				GPUImageSepiaFilter *sepiaFilter1 = [[GPUImageSepiaFilter alloc] init];
+				[(GPUImageFilterGroup *)self.filterFront addFilter:sepiaFilter1];
+				
+				GPUImagePixellateFilter *pixellateFilter1 = [[GPUImagePixellateFilter alloc] init];
+				[(GPUImageFilterGroup *)self.filterFront addFilter:pixellateFilter1];
+				[pixellateFilter1 setFractionalWidthOfAPixel:0.01];
+				
+				[sepiaFilter1 addTarget:pixellateFilter1];
+				[(GPUImageFilterGroup *)self.filterFront setInitialFilters:[NSArray arrayWithObject:sepiaFilter1]];
+				[(GPUImageFilterGroup *)self.filterFront setTerminalFilter:pixellateFilter1];
+			}
+		
+			
+		}break;
+			
+		default:
+			break;
+	}
+}
+/*
+	重置滤镜
+ */
+- (void)resetFilter{
+	
+	Class filterClass = NSClassFromString(self.filterClasssNameString);
+	NSLog(@"class name == %@",self.filterClasssNameString);
+	
+	if ([filterClass.class isSubclassOfClass:GPUImageFilter.class] 
+			|| [[[[filterClass.class alloc]init ]autorelease]isKindOfClass:GPUImageFilter.class]
+			||	[[[[filterClass.class alloc]init ]autorelease]isKindOfClass:GPUImageFilterGroup.class]) 
+	{
+	
+		GPUImageOutput<GPUImageInput> *filterBack= [[filterClass alloc]init];
+		self.filterBack = filterBack; //重新创建滤镜类
+		CY_RELEASE_SAFELY(filterBack);
+		
+		GPUImageOutput<GPUImageInput> *filterFront= [[filterClass alloc]init];
+		self.filterFront = filterFront; //重新创建滤镜类
+		CY_RELEASE_SAFELY(filterFront);
+		
+		//一些特殊滤镜的附加处理
+		[self additionFilterInit];
+	}
+}
+
+/*
+ 准备采集源
+ */
+- (void)prepareTarget{
+	
+	//	后部摄像头滤镜设置]
+	[_stillCameraBack removeAllTargets];
+	[_stillCameraBack addTarget:self.filterBack];
+	[self.filterBack prepareForImageCapture];
+	[self.filterBack addTarget:self.filterBackView];
+	
+	//	前部摄像头滤镜设置
+	[_stillCameraFront removeAllTargets];
+	[_stillCameraFront addTarget:self.filterFront];
+	[self.filterFront prepareForImageCapture];
+	[self.filterFront addTarget:self.filterFrontView];
+	
+	//	开始采集
+	if (UIImagePickerControllerCameraDeviceRear == self.cameraDevice) { 
+		[_stillCameraBack startCameraCapture];
+	}else {
+		[_stillCameraFront startCameraCapture];
+	}
+}
+
+/*
+	更新滤镜的参数值
+ */
+- (void)updateFilterValue:(float)value{
+//	switch(filterType)
+//    {
+//        case GPUIMAGE_SEPIA: [(GPUImageSepiaFilter *)filter setIntensity:[(UISlider *)sender value]]; break;
+//        case GPUIMAGE_PIXELLATE: [(GPUImagePixellateFilter *)filter setFractionalWidthOfAPixel:[(UISlider *)sender value]]; break;
+//        case GPUIMAGE_POLARPIXELLATE: [(GPUImagePolarPixellateFilter *)filter setPixelSize:CGSizeMake([(UISlider *)sender value], [(UISlider *)sender value])]; break;
+//        case GPUIMAGE_SATURATION: [(GPUImageSaturationFilter *)filter setSaturation:[(UISlider *)sender value]]; break;
+//        case GPUIMAGE_CONTRAST: [(GPUImageContrastFilter *)filter setContrast:[(UISlider *)sender value]]; break;
+//        case GPUIMAGE_BRIGHTNESS: [(GPUImageBrightnessFilter *)filter setBrightness:[(UISlider *)sender value]]; break;
+//        case GPUIMAGE_EXPOSURE: [(GPUImageExposureFilter *)filter setExposure:[(UISlider *)sender value]]; break;
+//        case GPUIMAGE_MONOCHROME: [(GPUImageMonochromeFilter *)filter setIntensity:[(UISlider *)sender value]]; break;
+//        case GPUIMAGE_RGB: [(GPUImageRGBFilter *)filter setGreen:[(UISlider *)sender value]]; break;
+//        case GPUIMAGE_SHARPEN: [(GPUImageSharpenFilter *)filter setSharpness:[(UISlider *)sender value]]; break;
+//        case GPUIMAGE_HISTOGRAM: [(GPUImageHistogramFilter *)filter setDownsamplingFactor:round([(UISlider *)sender value])]; break;
+//        case GPUIMAGE_UNSHARPMASK: [(GPUImageUnsharpMaskFilter *)filter setIntensity:[(UISlider *)sender value]]; break;
+//			//        case GPUIMAGE_UNSHARPMASK: [(GPUImageUnsharpMaskFilter *)filter setBlurSize:[(UISlider *)sender value]]; break;
+//        case GPUIMAGE_GAMMA: [(GPUImageGammaFilter *)filter setGamma:[(UISlider *)sender value]]; break;
+//        case GPUIMAGE_CROSSHATCH: [(GPUImageCrosshatchFilter *)filter setCrossHatchSpacing:[(UISlider *)sender value]]; break;
+//        case GPUIMAGE_POSTERIZE: [(GPUImagePosterizeFilter *)filter setColorLevels:round([(UISlider*)sender value])]; break;
+//		case GPUIMAGE_HAZE: [(GPUImageHazeFilter *)filter setDistance:[(UISlider *)sender value]]; break;
+//		case GPUIMAGE_THRESHOLD: [(GPUImageLuminanceThresholdFilter *)filter setThreshold:[(UISlider *)sender value]]; break;
+//        case GPUIMAGE_ADAPTIVETHRESHOLD: [(GPUImageAdaptiveThresholdFilter *)filter setBlurSize:[(UISlider*)sender value]]; break;
+//        case GPUIMAGE_DISSOLVE: [(GPUImageDissolveBlendFilter *)filter setMix:[(UISlider *)sender value]]; break;
+//        case GPUIMAGE_CHROMAKEY: [(GPUImageChromaKeyBlendFilter *)filter setThresholdSensitivity:[(UISlider *)sender value]]; break;
+//        case GPUIMAGE_KUWAHARA: [(GPUImageKuwaharaFilter *)filter setRadius:round([(UISlider *)sender value])]; break;
+//        case GPUIMAGE_SWIRL: [(GPUImageSwirlFilter *)filter setAngle:[(UISlider *)sender value]]; break;
+//        case GPUIMAGE_EMBOSS: [(GPUImageEmbossFilter *)filter setIntensity:[(UISlider *)sender value]]; break;
+//        case GPUIMAGE_CANNYEDGEDETECTION: [(GPUImageCannyEdgeDetectionFilter *)filter setBlurSize:[(UISlider*)sender value]]; break;
+//			//        case GPUIMAGE_CANNYEDGEDETECTION: [(GPUImageCannyEdgeDetectionFilter *)filter setLowerThreshold:[(UISlider*)sender value]]; break;
+//        case GPUIMAGE_HARRISCORNERDETECTION: [(GPUImageHarrisCornerDetectionFilter *)filter setThreshold:[(UISlider*)sender value]]; break;
+//        case GPUIMAGE_NOBLECORNERDETECTION: [(GPUImageNobleCornerDetectionFilter *)filter setThreshold:[(UISlider*)sender value]]; break;
+//        case GPUIMAGE_SHITOMASIFEATUREDETECTION: [(GPUImageShiTomasiFeatureDetectionFilter *)filter setThreshold:[(UISlider*)sender value]]; break;
+//			//        case GPUIMAGE_HARRISCORNERDETECTION: [(GPUImageHarrisCornerDetectionFilter *)filter setSensitivity:[(UISlider*)sender value]]; break;
+//        case GPUIMAGE_SMOOTHTOON: [(GPUImageSmoothToonFilter *)filter setBlurSize:[(UISlider*)sender value]]; break;
+//			//        case GPUIMAGE_BULGE: [(GPUImageBulgeDistortionFilter *)filter setRadius:[(UISlider *)sender value]]; break;
+//        case GPUIMAGE_BULGE: [(GPUImageBulgeDistortionFilter *)filter setScale:[(UISlider *)sender value]]; break;
+//        case GPUIMAGE_SPHEREREFRACTION: [(GPUImageSphereRefractionFilter *)filter setRadius:[(UISlider *)sender value]]; break;
+//        case GPUIMAGE_TONECURVE: [(GPUImageToneCurveFilter *)filter setBlueControlPoints:[NSArray arrayWithObjects:[NSValue valueWithCGPoint:CGPointMake(0.0, 0.0)], [NSValue valueWithCGPoint:CGPointMake(0.5, [(UISlider *)sender value])], [NSValue valueWithCGPoint:CGPointMake(1.0, 0.75)], nil]]; break;
+//        case GPUIMAGE_PINCH: [(GPUImagePinchDistortionFilter *)filter setScale:[(UISlider *)sender value]]; break;
+//        case GPUIMAGE_PERLINNOISE:  [(GPUImagePerlinNoiseFilter *)filter setScale:[(UISlider *)sender value]]; break;
+//        case GPUIMAGE_MOSAIC:  [(GPUImageMosaicFilter *)filter setDisplayTileSize:CGSizeMake([(UISlider *)sender value], [(UISlider *)sender value])]; break;
+//        case GPUIMAGE_VIGNETTE: [(GPUImageVignetteFilter *)filter setVignetteEnd:[(UISlider *)sender value]]; break;
+//        case GPUIMAGE_GAUSSIAN: [(GPUImageGaussianBlurFilter *)filter setBlurSize:[(UISlider*)sender value]]; break;
+//        case GPUIMAGE_BILATERAL: [(GPUImageBilateralFilter *)filter setBlurSize:[(UISlider*)sender value]]; break;
+//        case GPUIMAGE_FASTBLUR: [(GPUImageFastBlurFilter *)filter setBlurPasses:round([(UISlider*)sender value])]; break;
+//			//        case GPUIMAGE_FASTBLUR: [(GPUImageFastBlurFilter *)filter setBlurSize:[(UISlider*)sender value]]; break;
+//        case GPUIMAGE_OPACITY:  [(GPUImageOpacityFilter *)filter setOpacity:[(UISlider *)sender value]]; break;
+//        case GPUIMAGE_GAUSSIAN_SELECTIVE: [(GPUImageGaussianSelectiveBlurFilter *)filter setExcludeCircleRadius:[(UISlider*)sender value]]; break;
+//        case GPUIMAGE_FILTERGROUP: [(GPUImagePixellateFilter *)[(GPUImageFilterGroup *)filter filterAtIndex:1] setFractionalWidthOfAPixel:[(UISlider *)sender value]]; break;
+//        case GPUIMAGE_CROP: [(GPUImageCropFilter *)filter setCropRegion:CGRectMake(0.0, 0.0, 1.0, [(UISlider*)sender value])]; break;
+//        case GPUIMAGE_TRANSFORM: [(GPUImageTransformFilter *)filter setAffineTransform:CGAffineTransformMakeRotation([(UISlider*)sender value])]; break;
+//        case GPUIMAGE_TRANSFORM3D:
+//        {
+//            CATransform3D perspectiveTransform = CATransform3DIdentity;
+//            perspectiveTransform.m34 = 0.4;
+//            perspectiveTransform.m33 = 0.4;
+//            perspectiveTransform = CATransform3DScale(perspectiveTransform, 0.75, 0.75, 0.75);
+//            perspectiveTransform = CATransform3DRotate(perspectiveTransform, [(UISlider*)sender value], 0.0, 1.0, 0.0);
+//			
+//            [(GPUImageTransformFilter *)filter setTransform3D:perspectiveTransform];            
+//        }; break;
+//        case GPUIMAGE_TILTSHIFT:
+//        {
+//            CGFloat midpoint = [(UISlider *)sender value];
+//            [(GPUImageTiltShiftFilter *)filter setTopFocusLevel:midpoint - 0.1];
+//            [(GPUImageTiltShiftFilter *)filter setBottomFocusLevel:midpoint + 0.1];
+//        }; break;
+//        default: break;
+//    }
+	
+	do{
+		switch(_filterType)
+		{
+			
+			case GPUIMAGE_SHARPEN: {
+				//锐化
+				[(GPUImageSharpenFilter *)self.filterBack setSharpness:value]; 
+				[(GPUImageSharpenFilter *)self.filterFront setSharpness:value]; 
+
+			}break;
+			case GPUIMAGE_SEPIA:{
+				[(GPUImageSepiaFilter *)self.filterBack setIntensity:value];
+				[(GPUImageSepiaFilter *)self.filterFront setIntensity:value];
+
+			} break;
+
+			case GPUIMAGE_CROSSHATCH: {
+				[(GPUImageCrosshatchFilter *)self.filterBack setCrossHatchSpacing:value];
+				[(GPUImageCrosshatchFilter *)self.filterFront setCrossHatchSpacing:value];
+
+			} break;
+			case GPUIMAGE_SWIRL: {
+				[(GPUImageSwirlFilter *)self.filterBack setAngle:value];
+				[(GPUImageSwirlFilter *)self.filterFront setAngle:value];
+			} break;
+			case GPUIMAGE_EMBOSS:{
+				//	漫画
+				[(GPUImageEmbossFilter *)self.filterBack setIntensity:value]; 
+				[(GPUImageEmbossFilter *)self.filterFront setIntensity:value];
+			}break;
+			case GPUIMAGE_PIXELLATE: {
+				[(GPUImagePixellateFilter *)self.filterBack setFractionalWidthOfAPixel:value];
+				[(GPUImagePixellateFilter *)self.filterFront setFractionalWidthOfAPixel:value];
+
+			} break;
+			case GPUIMAGE_VIGNETTE: {
+				[(GPUImageVignetteFilter *)self.filterBack setVignetteEnd:value];
+				[(GPUImageVignetteFilter *)self.filterFront setVignetteEnd:value];
+
+			} break;
+			case GPUIMAGE_GAUSSIAN: {
+				[(GPUImageGaussianBlurFilter *)self.filterBack setBlurSize:value];
+				[(GPUImageGaussianBlurFilter *)self.filterFront setBlurSize:value];
+				
+			} break;
+			case GPUIMAGE_BULGE:{
+				[(GPUImageBulgeDistortionFilter *)self.filterBack setScale:value]; 
+				[(GPUImageBulgeDistortionFilter *)self.filterFront setScale:value]; 
+			}break;
+
+			default: break;
+		}
+
+	}while (0);
 }
 @end

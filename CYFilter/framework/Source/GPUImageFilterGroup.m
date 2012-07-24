@@ -86,13 +86,13 @@
 #pragma mark -
 #pragma mark GPUImageInput protocol
 
-- (void)newFrameReadyAtTime:(CMTime)frameTime;
+- (void)newFrameReadyAtTime:(CMTime)frameTime atIndex:(NSInteger)textureIndex;
 {
     for (GPUImageOutput<GPUImageInput> *currentFilter in _initialFilters)
     {
         if (currentFilter != self.inputFilterToIgnoreForUpdates)
         {
-            [currentFilter newFrameReadyAtTime:frameTime];
+            [currentFilter newFrameReadyAtTime:frameTime atIndex:textureIndex];
         }
     }
 }
@@ -107,10 +107,10 @@
 
 - (NSInteger)nextAvailableTextureIndex;
 {
-    if ([_initialFilters count] > 0)
-    {
-        return [[_initialFilters objectAtIndex:0] nextAvailableTextureIndex];
-    }
+//    if ([_initialFilters count] > 0)
+//    {
+//        return [[_initialFilters objectAtIndex:0] nextAvailableTextureIndex];
+//    }
     
     return 0;
 }

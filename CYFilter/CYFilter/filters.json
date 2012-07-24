@@ -1,26 +1,108 @@
 [
-	{
-        "filterName": "Sharpen",
-        "filterAction": "GPUImageSharpenFilter",
-		"filterType": 1,
-		"previewImage": "filterExampleSharpen.png"
-    },
     {
-        "filterName": "SepiaTone",
+        "filterName": "Sepia",
         "filterAction": "GPUImageSepiaFilter",
-        "filterType": 2,
-		"previewImage": "filterExampleSepiaTone.png"
+        "filterTypeID": 2,
+		"filterTypeEnum":"GPUIMAGE_SEPIA",
+		"previewImage": "filterExampleSepiaTone.png",
+		"value":0.5e0
     },
     {
         "filterName": "Crosshatch",
         "filterAction": "GPUImageCrosshatchFilter",
-        "filterType": 3,
-		"previewImage": "filterExampleCrosshatch.png"
+        "filterTypeID": 3,
+		"filterTypeEnum":"GPUIMAGE_CROSSHATCH",
+		"previewImage": "filterExampleCrosshatch.png",
+		"value":0.01e0
     },
     {
-        "filterName": "Sketch",
-        "filterAction": "GPUImageSketchFilter",
-        "filterType": 4,
-		"previewImage": "filterExampleSutro.png"
-    }
+     "filterName": "Sketch",
+     "filterAction": "GPUImageSketchFilter",
+     "filterTypeID": 4,
+		"filterTypeEnum":"GPUIMAGE_SKETCH",
+
+		"value":0.5e0
+	},
+	{
+		"filterName": "Swirl",
+		"filterAction": "GPUImageSwirlFilter",
+		"filterTypeID": 4,
+		"filterTypeEnum":"GPUIMAGE_SWIRL",
+ 
+		"value":0.1e0
+	},
+	{
+		"filterName": "Emboss",
+		"filterAction": "GPUImageEmbossFilter",
+		"filterTypeID": 5,
+		"filterTypeEnum":"GPUIMAGE_EMBOSS",
+
+		"value":1.0e0
+	},
+	{
+		"filterName": "Sketch",
+		"filterAction": "GPUImageSketchFilter",
+		"filterTypeID": 6,
+		"filterTypeEnum":"GPUIMAGE_SKETCH"
+
+	},
+	{
+		"filterName": "ColorInvert",
+		"filterAction": "GPUImageColorInvertFilter",
+		"filterTypeID": 7,
+		"filterTypeEnum":"GPUIMAGE_COLORINVERT"
+ 
+	},
+	{
+		"filterName": "Grayscale",
+		"filterAction": "GPUImageGrayscaleFilter",
+		"filterTypeID": 8,
+		"filterTypeEnum":"GPUIMAGE_GRAYSCALE"
+ 
+	},
+	{
+		"filterName": "Pixellate",
+		"filterAction": "GPUImagePixellateFilter",
+		"filterTypeID": 9,
+		"filterTypeEnum":"GPUIMAGE_PIXELLATE",
+		"value":0.1e-3
+	},
+	{
+		"filterName": "SobelEdgeDetection",
+		"filterAction": "GPUImageSobelEdgeDetectionFilter",
+		"filterTypeID": 10,
+		"filterTypeEnum":"GPUIMAGE_SOBELEDGEDETECTION"
+	},
+ 
+	{
+		"filterName": "Vignette",
+		"filterAction": "GPUImageVignetteFilter",
+		"filterTypeID": 11,
+		"filterTypeEnum":"GPUIMAGE_VIGNETTE",
+		"value":0.75e0
+	},
+	{
+		"filterName": "Gaussian",
+		"filterAction": "GPUImageGaussianBlurFilter",
+		"filterTypeID": 12,
+		"filterTypeEnum":"GPUIMAGE_GAUSSIAN",
+		"value":1.0e0
+	},
+	{
+		"filterName": "BulgeDistortion",
+		"filterAction": "GPUImageBulgeDistortionFilter",
+		"filterTypeID": 13,
+		"filterTypeEnum":"GPUIMAGE_BULGE",
+		"value":1.0e0
+	},
+	{
+		"filterName": "LOMO",
+		"filterAction": "GPUImageFilterGroup",
+		"filterTypeID": 14,
+		"filterTypeEnum":"GPUIMAGE_FILTERGROUP"
+	}
+
+
+
+ 	
 ]
