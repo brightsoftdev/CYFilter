@@ -12,15 +12,13 @@
         "filterAction": "GPUImageCrosshatchFilter",
         "filterTypeID": 2,
 		"filterTypeEnum":"GPUIMAGE_CROSSHATCH",
-		"previewImage": "filterExampleCrosshatch.png",
 		"value":0.01e0
     },
     {
-     "filterName": "Sketch",
-     "filterAction": "GPUImageSketchFilter",
-     "filterTypeID": 3,
+		"filterName": "Sketch",
+		"filterAction": "GPUImageSketchFilter",
+		"filterTypeID": 3,
 		"filterTypeEnum":"GPUIMAGE_SKETCH",
-
 		"value":0.5e0
 	},
 	{
@@ -28,7 +26,6 @@
 		"filterAction": "GPUImageSwirlFilter",
 		"filterTypeID": 4,
 		"filterTypeEnum":"GPUIMAGE_SWIRL",
- 
 		"value":0.1e0
 	},
 	{
@@ -36,7 +33,6 @@
 		"filterAction": "GPUImageEmbossFilter",
 		"filterTypeID": 5,
 		"filterTypeEnum":"GPUIMAGE_EMBOSS",
-
 		"value":1.0e0
 	},
 	{
@@ -44,7 +40,6 @@
 		"filterAction": "GPUImageSketchFilter",
 		"filterTypeID": 6,
 		"filterTypeEnum":"GPUIMAGE_SKETCH"
-
 	},
 	{
 		"filterName": "ColorInvert",
@@ -58,7 +53,6 @@
 		"filterAction": "GPUImageGrayscaleFilter",
 		"filterTypeID": 8,
 		"filterTypeEnum":"GPUIMAGE_GRAYSCALE"
- 
 	},
 	{
 		"filterName": "Pixellate",
@@ -120,7 +114,19 @@
 		"filterTypeID": 17,
 		"filterTypeEnum":"GPUIMAGE_MONOCHROME",
 		"value":0.5e0
+	},
+	{
+		"filterName": "Convolution",
+		"filterAction": "GPUImage3x3ConvolutionFilter",
+		"filterTypeID": 18,
+		"filterTypeEnum":"GPUIMAGE_CONVOLUTION"
+	},
+	{
+		"filterName": "RGB",
+		"filterAction": "GPUImageRGBFilter",
+		"filterTypeID": 19,
+		"filterTypeEnum":"GPUIMAGE_RGB"
 	}
 
- 	
+ 
 ]

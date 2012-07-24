@@ -419,7 +419,9 @@ static const NSDictionary *filterTypeDic;
 											  (kBottomBarViewHeight - 30)/2.0,
 											  50, 
 											  30);
-		[startCaptureButton addTarget:self action:@selector(takeOnePicture:) forControlEvents:UIControlEventTouchUpInside];
+		[startCaptureButton addTarget:self 
+							   action:@selector(takeOnePicture:) 
+					 forControlEvents:UIControlEventTouchUpInside];
 		
 		_startCaptureButton = [startCaptureButton retain];
 	}
@@ -635,39 +637,34 @@ static const NSDictionary *filterTypeDic;
 	
 	switch (_filterType) {
 		case GPUIMAGE_FILTERGROUP:
-		{
-			{
-				//filter back
-				NSLog(@"filter class = %@",NSStringFromClass(self.filterFront.class ) );
+		{			
+			GPUImageOutput<GPUImageInput> *filter = nil;
 
+			for (int i = 0 ; i < 2; i ++) { //两次同样的设置
+				if (0 == i) {
+					filter = self.filterBack;
+				}else {
+					filter = self.filterFront;
+				}
+				NSLog(@"filter class = %@",NSStringFromClass(self.filterFront.class ) );
+				
 				GPUImagePinchDistortionFilter *sepiaFilter = [[GPUImagePinchDistortionFilter alloc] init];
-				[(GPUImageFilterGroup *)self.filterBack addFilter:sepiaFilter];
+				[(GPUImageFilterGroup *)filter addFilter:sepiaFilter];
 				
 				GPUImageVignetteFilter *pixellateFilter = [[GPUImageVignetteFilter alloc] init];
-				[(GPUImageFilterGroup *)self.filterBack addFilter:pixellateFilter];
+				[(GPUImageFilterGroup *)filter addFilter:pixellateFilter];
 				[sepiaFilter setScale: - 0.8];
 				[sepiaFilter setRadius:2.0];
 				[sepiaFilter addTarget:pixellateFilter];
-				[(GPUImageFilterGroup *)self.filterBack setInitialFilters:[NSArray arrayWithObject:sepiaFilter]];
-				[(GPUImageFilterGroup *)self.filterBack setTerminalFilter:pixellateFilter];
-				[self.filterBack prepareForImageCapture];
-			}
-			{
-				//filter front
-				GPUImagePinchDistortionFilter *sepiaFilter1 = [[GPUImagePinchDistortionFilter alloc] init];
-				[(GPUImageFilterGroup *)self.filterFront addFilter:sepiaFilter1];
+				[(GPUImageFilterGroup *)filter setInitialFilters:[NSArray arrayWithObject:sepiaFilter]];
+				[(GPUImageFilterGroup *)filter setTerminalFilter:pixellateFilter];
 				
-				GPUImageVignetteFilter *pixellateFilter1 = [[GPUImageVignetteFilter alloc] init];
-				[(GPUImageFilterGroup *)self.filterFront addFilter:pixellateFilter1];
-				[sepiaFilter1 setScale: - 0.8];
-				[sepiaFilter1 setRadius:2.0];	
-
-				[sepiaFilter1 addTarget:pixellateFilter1];
-				[(GPUImageFilterGroup *)self.filterFront setInitialFilters:[NSArray arrayWithObject:sepiaFilter1]];
-				[(GPUImageFilterGroup *)self.filterFront setTerminalFilter:pixellateFilter1];
-				[self.filterFront	prepareForImageCapture];
+				[sepiaFilter release];
+				[pixellateFilter release];
+				
+				[filter prepareForImageCapture];
 			}
-
+		
 		}break;
 		case GPUIMAGE_DISSOLVEBLEND:{
 			UIImage *inputImage = [UIImage imageNamed:@"curvies.png"];
@@ -686,6 +683,54 @@ static const NSDictionary *filterTypeDic;
 			[(GPUImageMonochromeFilter *)self.filterBack setColor:(GPUVector4){0.5f, 0.3f, 1.0f, 0.0f}];		
 
 		}break;
+		case GPUIMAGE_CONVOLUTION:{
+			GPUImageOutput<GPUImageInput> *filter = nil;
+			for (int i = 0; i < 2; i ++) {
+				if (i == 0) {
+					filter = self.filterBack;
+				}else {
+					filter = self.filterFront;
+				}
+				
+				[(GPUImage3x3ConvolutionFilter *)filter setConvolutionKernel:(GPUMatrix3x3){
+//					{-1.0f,  0.0f, 1.0f}, //设置卷积的向量
+//					{-2.0f, 0.0f, 2.0f},
+//					{-1.0f,  0.0f, 1.0f}
+//					{-0.0f,  0.0f, 0.0f}, 
+//					{-0.0f, 1.0f, 0.0f},
+//					{-0.0f,  0.0f, 0.0f}
+//					{-1.0f,  -1.0f, -1.0f},
+//					{-1.0f, 9.0, -1.0f},
+//					{-1.0f,  -1.0f, -1.0f}
+//					{ 0.11f,  0.11f, 0.11f},
+//					{ 0.11f,  0.11f, 0.11f},
+//					{ 0.11f,  0.11f, 0.11f}
+					{-2, -1, 0}, //卷积效果 其实就是GPUImageEmbossFilter
+					{-1, 1, 1},
+					{0, 1, 2}
+
+				}];
+			}
+			
+
+		}break;
+			
+		case GPUIMAGE_RGB:{
+			GPUImageOutput<GPUImageInput> *filter = nil;
+				for (int i = 0; i < 2; i ++) {
+					if (i == 0) {
+						filter = self.filterBack;
+					}else {
+						filter = self.filterFront;
+					}
+				
+				//	 RGB 保留量 (0.0 - 1.0f)
+				[(GPUImageRGBFilter *)filter setRed:0.95];
+				[(GPUImageRGBFilter *)filter setGreen:0.5];
+				[(GPUImageRGBFilter *)filter setBlue:0.6];
+			}
+			
+		}
 		default:
 			break;
 	}
@@ -870,7 +915,6 @@ static const NSDictionary *filterTypeDic;
 			case GPUIMAGE_MONOCHROME: {
 				[(GPUImageMonochromeFilter *)self.filterBack setIntensity:value]; 
 				[(GPUImageMonochromeFilter *)self.filterFront setIntensity:value]; 
-
 			}break;
 
 			default: break;
