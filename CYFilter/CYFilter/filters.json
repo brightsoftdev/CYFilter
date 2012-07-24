@@ -2,7 +2,7 @@
     {
         "filterName": "Sepia",
         "filterAction": "GPUImageSepiaFilter",
-        "filterTypeID": 2,
+        "filterTypeID": 1,
 		"filterTypeEnum":"GPUIMAGE_SEPIA",
 		"previewImage": "filterExampleSepiaTone.png",
 		"value":0.5e0
@@ -10,7 +10,7 @@
     {
         "filterName": "Crosshatch",
         "filterAction": "GPUImageCrosshatchFilter",
-        "filterTypeID": 3,
+        "filterTypeID": 2,
 		"filterTypeEnum":"GPUIMAGE_CROSSHATCH",
 		"previewImage": "filterExampleCrosshatch.png",
 		"value":0.01e0
@@ -18,7 +18,7 @@
     {
      "filterName": "Sketch",
      "filterAction": "GPUImageSketchFilter",
-     "filterTypeID": 4,
+     "filterTypeID": 3,
 		"filterTypeEnum":"GPUIMAGE_SKETCH",
 
 		"value":0.5e0
@@ -96,13 +96,31 @@
 		"value":1.0e0
 	},
 	{
-		"filterName": "LOMO",
-		"filterAction": "GPUImageFilterGroup",
+		"filterName": "DissolveBlend",
+		"filterAction": "GPUImageDissolveBlendFilter",
 		"filterTypeID": 14,
+		"filterTypeEnum":"GPUIMAGE_DISSOLVEBLEND"
+	},
+	{
+		"filterName": "FilterGroup",
+		"filterAction": "GPUImageFilterGroup",
+		"filterTypeID": 15,
 		"filterTypeEnum":"GPUIMAGE_FILTERGROUP"
+	},
+	{
+		"filterName": "Sharpen",
+		"filterAction": "GPUImageSharpenFilter",
+		"filterTypeID": 16,
+		"filterTypeEnum":"GPUIMAGE_SHARPEN",
+		"value":4.0e0
+	},
+	{
+		"filterName": "Monochrome",
+		"filterAction": "GPUImageMonochromeFilter",
+		"filterTypeID": 17,
+		"filterTypeEnum":"GPUIMAGE_MONOCHROME",
+		"value":0.5e0
 	}
-
-
 
  	
 ]

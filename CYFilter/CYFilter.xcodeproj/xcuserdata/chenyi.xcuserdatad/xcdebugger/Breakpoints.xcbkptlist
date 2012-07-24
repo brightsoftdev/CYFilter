@@ -34,12 +34,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "CYFilter/Classes/CYImagePickerController.m"
-         timestampString = "364794689.645539"
+         timestampString = "364809937.445367"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "646"
-         endingLineNumber = "646"
-         landmarkName = "-additionFilterInit"
+         startingLineNumber = "740"
+         endingLineNumber = "740"
+         landmarkName = "-prepareTarget"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -47,12 +47,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "CYFilter/Classes/CYImagePickerController.m"
-         timestampString = "364794723.557148"
+         timestampString = "364809937.445367"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "288"
-         endingLineNumber = "288"
-         landmarkName = "-viewDidAppear:"
+         startingLineNumber = "743"
+         endingLineNumber = "743"
+         landmarkName = "-prepareTarget"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>
