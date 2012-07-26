@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E5087BA815BF99BF0086F5D7 /* test.JPG in Resources */ = {isa = PBXBuildFile; fileRef = E5087BA715BF99BF0086F5D7 /* test.JPG */; };
+		E5087EC815BFFA760086F5D7 /* CYFilterChain.m in Sources */ = {isa = PBXBuildFile; fileRef = E5087EC715BFFA760086F5D7 /* CYFilterChain.m */; };
+		E5087ECB15C004300086F5D7 /* CYYellowCake.m in Sources */ = {isa = PBXBuildFile; fileRef = E5087ECA15C004300086F5D7 /* CYYellowCake.m */; };
 		E51C970915BCF869002871F9 /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = E51C96FF15BCF869002871F9 /* NSObject+SBJSON.m */; };
 		E51C970A15BCF869002871F9 /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = E51C970115BCF869002871F9 /* NSString+SBJSON.m */; };
 		E51C970B15BCF869002871F9 /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = E51C970415BCF869002871F9 /* SBJsonBase.m */; };
@@ -61,6 +64,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E5087BA715BF99BF0086F5D7 /* test.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = test.JPG; path = Resources/test.JPG; sourceTree = "<group>"; };
+		E5087EC615BFFA760086F5D7 /* CYFilterChain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CYFilterChain.h; path = Classes/CYFilterChain.h; sourceTree = "<group>"; };
+		E5087EC715BFFA760086F5D7 /* CYFilterChain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CYFilterChain.m; path = Classes/CYFilterChain.m; sourceTree = "<group>"; };
+		E5087EC915C004300086F5D7 /* CYYellowCake.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CYYellowCake.h; path = Classes/CYYellowCake.h; sourceTree = "<group>"; };
+		E5087ECA15C004300086F5D7 /* CYYellowCake.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CYYellowCake.m; path = Classes/CYYellowCake.m; sourceTree = "<group>"; };
 		E51C96FE15BCF869002871F9 /* NSObject+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJSON.h"; sourceTree = "<group>"; };
 		E51C96FF15BCF869002871F9 /* NSObject+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJSON.m"; sourceTree = "<group>"; };
 		E51C970015BCF869002871F9 /* NSString+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SBJSON.h"; sourceTree = "<group>"; };
@@ -125,6 +133,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E5087EC515BFF9560086F5D7 /* Filters */ = {
+			isa = PBXGroup;
+			children = (
+				E5087EC615BFFA760086F5D7 /* CYFilterChain.h */,
+				E5087EC715BFFA760086F5D7 /* CYFilterChain.m */,
+				E5087EC915C004300086F5D7 /* CYYellowCake.h */,
+				E5087ECA15C004300086F5D7 /* CYYellowCake.m */,
+			);
+			name = Filters;
+			sourceTree = "<group>";
+		};
 		E51C96E815BCF6E7002871F9 /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -214,13 +233,14 @@
 		E566F93115AFF8590080D2D5 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				E5087EC515BFF9560086F5D7 /* Filters */,
+				E5A5A10A15B42188005CFE0A /* CYUserMacroDefine.h */,
 				E595360215B930AA0027922B /* CYImagePickController.h */,
 				E566F92E15AFF8480080D2D5 /* CYMainViewController.h */,
 				E566F92F15AFF8480080D2D5 /* CYMainViewController.m */,
 				E566F94E15B0041F0080D2D5 /* CYShowCaseFilterViewController.m */,
 				E5A5A10715B41C9D005CFE0A /* CYFiltersManager.h */,
 				E5A5A10815B41C9E005CFE0A /* CYFiltersManager.m */,
-				E5A5A10A15B42188005CFE0A /* CYUserMacroDefine.h */,
 				E595360315B930F70027922B /* CYImagePickerController.h */,
 				E595360415B930F70027922B /* CYImagePickerController.m */,
 			);
@@ -239,6 +259,7 @@
 		E5BF4F9415B56AD500F017D5 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				E5087BA715BF99BF0086F5D7 /* test.JPG */,
 				E5BF4FAF15B56B1100F017D5 /* curvies.png */,
 				E5BF4FB015B56B1100F017D5 /* dotletterstiles.png */,
 				E5BF4FB115B56B1100F017D5 /* mask.png */,
@@ -330,6 +351,7 @@
 				E5BF4FC415B56B1100F017D5 /* mask.png in Resources */,
 				E5BF4FC515B56B1100F017D5 /* squares.png in Resources */,
 				E5BF4FC615B56B1100F017D5 /* voroni_points2.png in Resources */,
+				E5087BA815BF99BF0086F5D7 /* test.JPG in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -351,6 +373,8 @@
 				E51C970B15BCF869002871F9 /* SBJsonBase.m in Sources */,
 				E51C970C15BCF869002871F9 /* SBJsonParser.m in Sources */,
 				E51C970D15BCF869002871F9 /* SBJsonWriter.m in Sources */,
+				E5087EC815BFFA760086F5D7 /* CYFilterChain.m in Sources */,
+				E5087ECB15C004300086F5D7 /* CYYellowCake.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

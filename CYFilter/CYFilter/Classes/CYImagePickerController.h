@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "GPUImage.h"
 
+/*
+	滤镜类型
+ */
 typedef enum {
 	GPUIMAGE_NONE = 0,//无滤镜
     GPUIMAGE_SATURATION,
@@ -92,59 +95,39 @@ typedef enum {
     GPUIMAGE_FILECONFIG,
     GPUIMAGE_FILTERGROUP,
     GPUIMAGE_NUMFILTERS,
+	GPUIMAGE_GLASSSPHERE,
 	GPUIMAGE_LAST //最后一个标记
 } GPUImageShowcaseFilterType; 
 
+/*
+	状态码
+ */
+typedef enum{
+	
+	CYImagePickerStateCapture,	//	正在实时滤镜采集，默认
+	CYImagePickerStateEditing	//	采集完毕，静态编辑状态
+
+}CYImagePickerState;
+
+@protocol CYImagePickerControllerDelegate;
 
 @interface CYImagePickerController : UIViewController
 {
-	//	滤镜类型
-	GPUImageShowcaseFilterType _filterType;
-	NSArray *_jsonObjectArray;	//	json解析出来的对象
 	
-	@private
-	//	用于从系统的照片库拾取照片
-	UIImagePickerController *_localImagePickerController;
-	
-	//	UI界面
-	UIButton *_turnFlashModeButton;	//	改变闪光灯状态
-	UIButton *_turnCameraDeviceButton;	//	镜头切换
-	UIView *_bottomBarView;			//	底部工具栏
-	UIButton *_concelCaptureButton;	//	取消采集按钮
-	UIButton *_startCaptureButton;  //	拍照、开始采集按钮
-	UIButton *_pickFilterButton;	//	滤镜界面呼出按钮
-	UIScrollView *_filterSelectScrollView;	//  滤镜效果选择列表
-	
-	//	滤镜处理
-	NSString *_filterClassNameString;		//	滤镜效果类名
-
-	GPUImageStillCamera *_stillCameraBack;	//	镜头相机采集后部
-	GPUImageStillCamera *_stillCameraFront; //	镜头相机采集前部
-	GPUImageVideoCamera *_videoCamera;		//	视频采集
-    GPUImageOutput<GPUImageInput> *_filterFront;	//	滤镜源
-	GPUImageOutput<GPUImageInput> *_filterBack;
-    GPUImagePicture *_sourcePicture;		//	附加图片
-	GPUImageView *_filterFrontView;			//	滤镜效果图
-	GPUImageView *_filterBackView;			//	滤镜后摄像头View
+	id<CYImagePickerControllerDelegate> _delegate;	//	代理
+	GPUImageShowcaseFilterType _filterType;			//	滤镜类型
 }
 @property(nonatomic)GPUImageShowcaseFilterType filterType;
-@property(nonatomic,retain)NSArray *jsonObjectArray;
-
-@property(nonatomic,retain)UIButton *turnCameraDeviceButton;
-@property(nonatomic,retain)UIView *bottomBarView;
-@property(nonatomic,retain)UIButton *startCaptureButton;
-@property(nonatomic,retain)UIScrollView * filterSelectScrollView;
-
-@property(nonatomic,retain)GPUImageOutput<GPUImageInput> *filterFront;
-@property(nonatomic,retain)GPUImageOutput<GPUImageInput> *filterBack;
-@property(nonatomic,retain)GPUImageView *filterFrontView;
-@property(nonatomic,retain)GPUImageView *filterBackView;
 
 //	相机的一些状态设置
 @property(nonatomic) UIImagePickerControllerCameraCaptureMode cameraCaptureMode __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_4_0); // default is UIImagePickerControllerCameraCaptureModePhoto
 @property(nonatomic) UIImagePickerControllerCameraDevice      cameraDevice      __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_4_0); // default is UIImagePickerControllerCameraDeviceRear
 @property(nonatomic) UIImagePickerControllerCameraFlashMode   cameraFlashMode   __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_4_0); // default is UIImagePickerControllerCameraFlashModeAuto. 
-@property(nonatomic,copy) NSString *filterClasssNameString;
+
+// init
+- (id)initWithState:(CYImagePickerState)state editImage:(UIImage *)editImage;
+
+
 + (BOOL)isSourceTypeAvailable:(UIImagePickerControllerSourceType)sourceType;                 // returns YES if source is available (i.e. camera present)
 + (NSArray *)availableMediaTypesForSourceType:(UIImagePickerControllerSourceType)sourceType; // returns array of available media types (i.e. kUTTypeImage)
 
@@ -152,8 +135,9 @@ typedef enum {
 + (BOOL)isFlashAvailableForCameraDevice:(UIImagePickerControllerCameraDevice)cameraDevice           __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_4_0); // returns YES if camera device supports flash and torch.
 + (NSArray *)availableCaptureModesForCameraDevice:(UIImagePickerControllerCameraDevice)cameraDevice __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_4_0); // returns array of NSNumbers (UIImagePickerControllerCameraCaptureMode)
 
-
 @end
+
+
 
 @protocol CYImagePickerControllerDelegate <NSObject>
 
@@ -162,6 +146,7 @@ typedef enum {
 // The delegate will receive one or the other, but not both, depending whether the user
 // confirms or cancels.
 - (void)imagePickerController:(CYImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info;
+
 - (void)imagePickerControllerDidCancel:(CYImagePickerController *)picker;
 
 @end

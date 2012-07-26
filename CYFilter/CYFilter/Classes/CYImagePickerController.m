@@ -7,7 +7,7 @@
 //
 
 #import "CYImagePickerController.h"
-
+#import "CYYellowCake.h"
 static const NSInteger kFiltersCount = 20;
 static const CGFloat kFilterSelectViewHeight = 40;
 static const CGFloat kFilterSelectViewWidth  = 320;
@@ -17,13 +17,40 @@ static const CGFloat kBottomBarViewWidth = 320;
 static const NSDictionary *filterTypeDic;
 
 @interface CYImagePickerController ()
+{
+	CYImagePickerState _pickerState;		//	状态码
+	
+	NSArray *_jsonObjectArray;				//	json解析出来的对象
+	//	用于从系统的照片库拾取照片
+	
+	GPUImageStillCamera *_stillCameraBack;	//	镜头相机采集后部
+	GPUImageStillCamera *_stillCameraFront; //	镜头相机采集前部
+	GPUImageVideoCamera *_videoCamera;		//	视频采集
+    GPUImagePicture *_sourcePicture;		//	附加图片 混合效果
+}
+//	私有成员
+@property(nonatomic,retain)NSArray *jsonObjectArray;
+@property(nonatomic,retain)UIImagePickerController *localImagePickerController;
+@property(nonatomic,retain)UIButton *turnCameraDeviceButton;
+@property(nonatomic,retain)UIView *bottomBarView;
+@property(nonatomic,retain)UIButton *startCaptureButton;
+@property(nonatomic,retain)UIScrollView * filterSelectScrollView;
+@property(nonatomic,retain)GPUImagePicture *editPicture;
+@property(nonatomic,retain)GPUImageOutput<GPUImageInput> *filterFront;
+@property(nonatomic,retain)GPUImageOutput<GPUImageInput> *filterBack;
+@property(nonatomic,retain)GPUImageView *filterFrontView;
+@property(nonatomic,retain)GPUImageView *filterBackView;
+@property(nonatomic,copy) NSString *filterClasssNameString;
 
 @end
+
 
 @implementation CYImagePickerController
 
 @synthesize filterType = _filterType;
+@synthesize localImagePickerController = _localImagePickerController;
 @synthesize jsonObjectArray = _jsonObjectArray;
+@synthesize editPicture = _editPicture;
 @synthesize filterBackView = _filterBackView;
 @synthesize filterFrontView  = _filterFrontView;
 @synthesize filterFront = _filterFront;
@@ -37,18 +64,16 @@ static const NSDictionary *filterTypeDic;
 @synthesize cameraFlashMode;
 @synthesize cameraDevice;
 
+#pragma mark - dealloc
 - (void)dealloc{
 	[super dealloc];
 	CY_RELEASE_SAFELY(filterTypeDic);
 	CY_RELEASE_SAFELY(_jsonObjectArray);
 	CY_RELEASE_SAFELY(_localImagePickerController);
 	
-	CY_RELEASE_SAFELY(_turnFlashModeButton);
 	CY_RELEASE_SAFELY(_turnCameraDeviceButton);
 	CY_RELEASE_SAFELY(_bottomBarView);
-	CY_RELEASE_SAFELY(_concelCaptureButton);
 	CY_RELEASE_SAFELY(_startCaptureButton);
-	CY_RELEASE_SAFELY(_pickFilterButton);
 	CY_RELEASE_SAFELY(_filterSelectScrollView);
 	
 	//	滤镜处理
@@ -60,6 +85,7 @@ static const NSDictionary *filterTypeDic;
 	CY_RELEASE_SAFELY(_filterFront);
 	CY_RELEASE_SAFELY(_filterBack)
 	CY_RELEASE_SAFELY(_sourcePicture);
+	CY_RELEASE_SAFELY(_editPicture);
 	CY_RELEASE_SAFELY(_filterFrontView);
 	CY_RELEASE_SAFELY(_filterBackView);
 }
@@ -91,12 +117,15 @@ static const NSDictionary *filterTypeDic;
 	return [UIImagePickerController availableCaptureModesForCameraDevice:cameraDevice];
 } // returns array of NSNumbers (UIImagePickerControllerCameraCaptureMode)
 
-
+#pragma mark - --- init
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+		
+		_pickerState = CYImagePickerStateCapture ;
+		
 		// 此处的键值对应与GPUImageShowcaseFilterType
 		NSArray *keys = [NSArray arrayWithObjects:
 						 @"GPUIMAGE_NONE",//无滤镜
@@ -181,8 +210,8 @@ static const NSDictionary *filterTypeDic;
 						 @"GPUIMAGE_FILECONFIG",
 						 @"GPUIMAGE_FILTERGROUP",
 						 @"GPUIMAGE_NUMFILTERS",
-						
 						 nil];
+		
 		NSMutableArray *objects = [NSMutableArray arrayWithCapacity:keys.count];
 		for (int i = 0 ; i < keys.count; i ++) {
 			NSNumber *keyIndex = [NSNumber numberWithInt:i];
@@ -193,6 +222,17 @@ static const NSDictionary *filterTypeDic;
     return self;
 }
 
+- (id)initWithState:(CYImagePickerState) state editImage:(UIImage *)editImage{
+	if (self = [self init]) {
+		_pickerState = state;
+		
+		if (CYImagePickerStateEditing ==_pickerState   && editImage ) {
+			_editPicture = [[GPUImagePicture alloc] initWithImage:editImage smoothlyScaleOutput:YES];
+		}
+	}
+	
+	return self;
+}
 #pragma mark - common init filters
 /*
  *	初始化滤镜的一些操作
@@ -204,15 +244,17 @@ static const NSDictionary *filterTypeDic;
 	self.cameraDevice  = UIImagePickerControllerCameraDeviceRear;
 	self.cameraFlashMode = UIImagePickerControllerCameraFlashModeOff;
 	
-	if (!_stillCameraBack) {
+	if (!_stillCameraBack &&  CYImagePickerStateCapture == _pickerState ) {
+		
 		_stillCameraBack = [[GPUImageStillCamera alloc]initWithSessionPreset:AVCaptureSessionPreset640x480 
 															  cameraPosition:AVCaptureDevicePositionBack];
 		_stillCameraBack = [[GPUImageStillCamera alloc]init];
 		_stillCameraBack.outputImageOrientation = UIInterfaceOrientationPortrait;
 		
-//		_stillCameraBack.runBenchmark = YES;
+//		_stillCameraBack.runBenchmark = YES; //是否打印采集信息
 	}
-	if (!_stillCameraFront) {
+	if (!_stillCameraFront && CYImagePickerStateCapture == _pickerState  ) {
+		
 		_stillCameraFront = [[GPUImageStillCamera alloc]initWithSessionPreset:AVCaptureSessionPreset640x480 
 															   cameraPosition:AVCaptureDevicePositionFront];
 		_stillCameraFront = [[GPUImageStillCamera alloc]init];
@@ -223,6 +265,7 @@ static const NSDictionary *filterTypeDic;
 	//默认是无滤镜效果
 	//	self.filterType = GPUIMAGE_NONE;
 //	self.filterType = GPUIMAGE_SATURATION;
+	
 	self.filterClasssNameString = @"GPUImageSepiaFilter";
 }
 
@@ -230,6 +273,7 @@ static const NSDictionary *filterTypeDic;
 - (void)loadView{
 	[super loadView];
 	
+	//隐藏状态栏
 	[[UIApplication sharedApplication]setStatusBarHidden:YES];
 	self.view.backgroundColor = [UIColor blackColor];
 	
@@ -238,17 +282,19 @@ static const NSDictionary *filterTypeDic;
 	
 	//照片预览图 前
 	[self.view addSubview:self.filterFrontView];
+	
 	//照片预览图 后
 	[self.view addSubview:self.filterBackView];
 	
-	//旋转摄像头。。。将切换按钮加到预览图上面
-	[self.view addSubview:self.turnCameraDeviceButton];
+	if (_pickerState == CYImagePickerStateCapture) {
+		//旋转摄像头。。。将切换按钮加到预览图上面
+		[self.view addSubview:self.turnCameraDeviceButton];
+		//底部布局
+		[self.view addSubview:self.bottomBarView];
+	}
 	
 	//选择列表
 	[self.view addSubview:self.filterSelectScrollView];
-	
-	//底部布局
-	[self.view addSubview:self.bottomBarView];
 }
 
 - (void)viewDidLoad
@@ -263,12 +309,9 @@ static const NSDictionary *filterTypeDic;
 {
     [super viewDidUnload];
     // Release any retained subviews of the main view.
-	CY_RELEASE_SAFELY(_turnFlashModeButton);
 	CY_RELEASE_SAFELY(_turnCameraDeviceButton);
 	CY_RELEASE_SAFELY(_bottomBarView);
-	CY_RELEASE_SAFELY(_concelCaptureButton);
 	CY_RELEASE_SAFELY(_startCaptureButton);
-	CY_RELEASE_SAFELY(_pickFilterButton);
 	CY_RELEASE_SAFELY(_filterSelectScrollView);
 	
 	CY_RELEASE_SAFELY(_filterFrontView);
@@ -432,7 +475,7 @@ static const NSDictionary *filterTypeDic;
 #pragma mark - other
 
 /*	
- json解析出来的数组，每个元素是一个dictionary
+ *	json解析出来的数组，每个元素是一个dictionary
  */
 - (NSArray *)jsonObjectArray{
 	if (!_jsonObjectArray) {
@@ -473,7 +516,6 @@ static const NSDictionary *filterTypeDic;
 		}
 		
 	}
-	
 }
 
 /*
@@ -507,7 +549,7 @@ static const NSDictionary *filterTypeDic;
 			[_stillCameraFront rotateCamera];
 		}
 		self.filterFrontView.alpha = 1.0;
-//		[_stillCameraBack stopCameraCapture];
+		[_stillCameraBack stopCameraCapture];
 //		[_stillCameraFront startCameraCapture];
 		[self prepareTarget];
 
@@ -518,7 +560,7 @@ static const NSDictionary *filterTypeDic;
 		self.filterFrontView.alpha = 0.0;
 		self.filterBackView.alpha = 1.0;
 		
-//		[_stillCameraFront stopCameraCapture];
+		[_stillCameraFront stopCameraCapture];
 //		[_stillCameraBack startCameraCapture];
 		[self prepareTarget];
 
@@ -543,8 +585,8 @@ static const NSDictionary *filterTypeDic;
 /*
 	拍摄一张照片并记录
  */
+
 - (void)takeOnePicture:(id)sender{
-	
 	//添加一个相机关闭的动画
 	CATransition *transition = [CATransition animation];
 	transition.type = @"cameraIrisHollowClose";
@@ -583,32 +625,16 @@ static const NSDictionary *filterTypeDic;
 	}];
 }
 #pragma mark - setter 
+
 /*
-	设置滤镜类型
+ *	设置滤镜类型
  */
 - (void)setFilterType:(GPUImageShowcaseFilterType)filterType{
-//	switch (filterType) {
-//		case GPUIMAGE_NONE:
-//		{
-//			self.filterClasssNameString = @"";
-//		}break;
-//			
-//		case GPUIMAGE_SATURATION:{
-//			self.filterClasssNameString = NSStringFromClass(GPUImageSaturationFilter.class);
-//		}break;
-//		case GPUIMAGE_SHARPEN:{
-//			self.filterClasssNameString = NSStringFromClass(GPUImageSharpenFilter.class) ;
-//		}break;
-//		default:{
-//			
-//		}break;
-//	}
-	
+
 	if (_filterType != filterType) { //与当前的type不同
 		_filterType = filterType;
 	}
 }
-
 
 /*
  *	重置滤镜类名，将会使得滤镜重置
@@ -617,7 +643,7 @@ static const NSDictionary *filterTypeDic;
 	
 	if ([self.filterClasssNameString isEqualToString:filterClasssNameString] ||
 		[filterClasssNameString isEqualToString:@""]) {
-		
+
 		return;
 	}
 	
@@ -631,10 +657,10 @@ static const NSDictionary *filterTypeDic;
 #pragma mark - filter operation
 
 /*
-	附加的滤镜初始化设置
+ * 附加的滤镜初始化设置,不是所有的类型都需要这一步骤
  */
 - (void)additionFilterInit{
-	
+
 	switch (_filterType) {
 		case GPUIMAGE_FILTERGROUP:
 		{			
@@ -646,22 +672,21 @@ static const NSDictionary *filterTypeDic;
 				}else {
 					filter = self.filterFront;
 				}
-				NSLog(@"filter class = %@",NSStringFromClass(self.filterFront.class ) );
+				NSLog(@"filter class = %@",NSStringFromClass(self.filterBack.class ) );
 				
 				GPUImagePinchDistortionFilter *sepiaFilter = [[GPUImagePinchDistortionFilter alloc] init];
+				[sepiaFilter prepareForImageCapture];
 				[(GPUImageFilterGroup *)filter addFilter:sepiaFilter];
 				
 				GPUImageVignetteFilter *pixellateFilter = [[GPUImageVignetteFilter alloc] init];
+				[pixellateFilter prepareForImageCapture];
 				[(GPUImageFilterGroup *)filter addFilter:pixellateFilter];
 				[sepiaFilter setScale: - 0.8];
 				[sepiaFilter setRadius:2.0];
 				[sepiaFilter addTarget:pixellateFilter];
 				[(GPUImageFilterGroup *)filter setInitialFilters:[NSArray arrayWithObject:sepiaFilter]];
 				[(GPUImageFilterGroup *)filter setTerminalFilter:pixellateFilter];
-				
-				[sepiaFilter release];
-				[pixellateFilter release];
-				
+								
 				[filter prepareForImageCapture];
 			}
 		
@@ -671,19 +696,27 @@ static const NSDictionary *filterTypeDic;
 			if (_sourcePicture) {
 				CY_RELEASE_SAFELY(_sourcePicture);
 			}
-			_sourcePicture = [[GPUImagePicture alloc] initWithImage:inputImage smoothlyScaleOutput:YES];
-            [_sourcePicture processImage];            
+			_sourcePicture = [[GPUImagePicture alloc] initWithImage:inputImage ];
+            [_sourcePicture processImage];      
             [_sourcePicture addTarget:self.filterBack];
-			[_sourcePicture addTarget:self.filterFront];
-
+			
+			
+			if (CYImagePickerStateCapture == _pickerState) {
+				UIImage *inputImage1 = [UIImage imageNamed:@"curvies.png"];
+				GPUImagePicture *pic = [[[GPUImagePicture alloc]initWithImage:inputImage1 ]autorelease];
+				[pic processImage];
+				[pic addTarget:self.filterFront];
+			}
+			
 		}break;
 			
 		case GPUIMAGE_MONOCHROME: {
-			[(GPUImageMonochromeFilter *)self.filterFront setColor:(GPUVector4){0.5f, 0.3f, 1.0f, 0.0f}];			
-			[(GPUImageMonochromeFilter *)self.filterBack setColor:(GPUVector4){0.5f, 0.3f, 1.0f, 0.0f}];		
-
+			[(GPUImageMonochromeFilter *)self.filterFront setColor:(GPUVector4){0.5f, 0.5f, 0.5f, 1.f}];			
+			[(GPUImageMonochromeFilter *)self.filterBack setColor:(GPUVector4){0.5f, 0.5f, 0.5f, 1.f}];		
+				//{0.5f, 0.3f, 1.0f, 0.0f}
 		}break;
-		case GPUIMAGE_CONVOLUTION:{
+			
+		case GPUIMAGE_CONVOLUTION:{ //此处卷积积分主要用于模糊，锐化，浮雕等。
 			GPUImageOutput<GPUImageInput> *filter = nil;
 			for (int i = 0; i < 2; i ++) {
 				if (i == 0) {
@@ -702,17 +735,15 @@ static const NSDictionary *filterTypeDic;
 //					{-1.0f,  -1.0f, -1.0f},
 //					{-1.0f, 9.0, -1.0f},
 //					{-1.0f,  -1.0f, -1.0f}
-//					{ 0.11f,  0.11f, 0.11f},
-//					{ 0.11f,  0.11f, 0.11f},
-//					{ 0.11f,  0.11f, 0.11f}
-					{-2, -1, 0}, //卷积效果 其实就是GPUImageEmbossFilter
-					{-1, 1, 1},
-					{0, 1, 2}
+					{ 0.11f,  0.11f, 0.11f},
+					{ 0.11f,  0.11f, 0.11f},
+					{ 0.11f,  0.11f, 0.11f}
+//					{-2, -1, 0}, //卷积效果 其实就是GPUImageEmbossFilter
+//					{-1, 1, 1},
+//					{0, 1, 2}
 
 				}];
 			}
-			
-
 		}break;
 			
 		case GPUIMAGE_RGB:{
@@ -729,8 +760,7 @@ static const NSDictionary *filterTypeDic;
 				[(GPUImageRGBFilter *)filter setGreen:0.5];
 				[(GPUImageRGBFilter *)filter setBlue:0.6];
 			}
-			
-		}
+		}break;
 		default:
 			break;
 	}
@@ -738,7 +768,7 @@ static const NSDictionary *filterTypeDic;
 
 
 /*
-	重置滤镜
+ *	重置滤镜
  */
 - (void)resetFilter{
 	
@@ -753,45 +783,74 @@ static const NSDictionary *filterTypeDic;
 		self.filterBack = filterBack; //重新创建滤镜类
 		CY_RELEASE_SAFELY(filterBack);
 		
-		GPUImageOutput<GPUImageInput> *filterFront= [[filterClass alloc]init];
-		self.filterFront = filterFront; //重新创建滤镜类
-		CY_RELEASE_SAFELY(filterFront);
+		if (CYImagePickerStateCapture == _pickerState) {
+			GPUImageOutput<GPUImageInput> *filterFront= [[filterClass alloc]init];
+			self.filterFront = filterFront; //重新创建滤镜类
+			CY_RELEASE_SAFELY(filterFront);
+		}
+	}else {
+		GPUImageOutput<GPUImageInput> *filterBack= ((CYYellowCake *)[[filterClass alloc]init]).finallyFilter;
+		self.filterBack = filterBack; //重新创建滤镜类
+		CY_RELEASE_SAFELY(filterBack);
+		
+		if (CYImagePickerStateCapture == _pickerState) {
+			GPUImageOutput<GPUImageInput> *filterFront=  ((CYYellowCake *)[[filterClass alloc]init]).finallyFilter;
+			self.filterFront = filterFront; //重新创建滤镜类
+			CY_RELEASE_SAFELY(filterFront);
+		}
 	}
 }
 
 /*
-	准备采集源
+ *	准备采集源
  */
 - (void)prepareTarget{
-	
-	[_stillCameraBack removeAllTargets];
-	[_stillCameraBack addTarget:self.filterBack];
-	
-	[_stillCameraFront removeAllTargets];
-	[_stillCameraFront addTarget:self.filterFront];
-	
-	//	一些特殊滤镜的附加处理,如：各种混合模式滤镜,滤镜组合
-	[self additionFilterInit];
+	if (_pickerState == CYImagePickerStateCapture) { // 实时滤镜
+				
+		//	一些特殊滤镜的附加处理,如：各种混合模式滤镜,滤镜组合
+		[self additionFilterInit];
+		
+		[_stillCameraBack removeAllTargets];
+		[self.filterBack prepareForImageCapture];
+		[_stillCameraBack addTarget:self.filterBack];
+		
+		[_stillCameraFront removeAllTargets];
+		[self.filterFront prepareForImageCapture];
+		[_stillCameraFront addTarget:self.filterFront];
 
-	//	后部摄像头滤镜设置
-	[self.filterBack prepareForImageCapture];
-	[self.filterBack addTarget:self.filterBackView];
-	//	前部摄像头滤镜设置
-	[self.filterFront prepareForImageCapture];
-	[self.filterFront addTarget:self.filterFrontView];
+		//	后部摄像头滤镜设置
+		[self.filterBack addTarget:self.filterBackView];
 
-	//	开始采集
-	if (UIImagePickerControllerCameraDeviceRear == self.cameraDevice) { 
-		[_stillCameraBack startCameraCapture];
-		[_stillCameraFront stopCameraCapture];
+		//	前部摄像头滤镜设置
+		[self.filterFront addTarget:self.filterFrontView];
+
+		//	开始采集
+		if (UIImagePickerControllerCameraDeviceRear == self.cameraDevice) { 
+			[_stillCameraBack startCameraCapture];
+			[_stillCameraFront stopCameraCapture];
+		}else {
+			[_stillCameraFront startCameraCapture];
+			[_stillCameraBack stopCameraCapture];
+		}
 	}else {
-		[_stillCameraFront startCameraCapture];
-		[_stillCameraBack stopCameraCapture];
+		[_editPicture removeAllTargets];
+		
+		//	任选前后一个滤镜就可以
+		[_editPicture addTarget:self.filterBack];
+
+		//	一些特殊滤镜的附加处理,如：各种混合模式滤镜,滤镜组合
+		[self additionFilterInit];
+		
+		//	后部摄像头滤镜设置
+		[self.filterBack addTarget:self.filterBackView];
+		
+		[_editPicture processImage];
 	}
 }
 
 /*
-	更新滤镜的参数值
+ *	更新滤镜的参数值，更新值的时候要视具体的滤镜类型而定
+ *	一般情况下，只有一个参数值，附加的值需要在additionFilterInit设定
  */
 - (void)updateFilterValue:(float)value{
 //	switch(filterType)
@@ -863,11 +922,8 @@ static const NSDictionary *filterTypeDic;
 //        default: break;
 //    }
 	
-	do{
-		switch(_filterType)
-		{
-			
-			
+	switch(_filterType)
+	{
 			case GPUIMAGE_SEPIA:{
 				[(GPUImageSepiaFilter *)self.filterBack setIntensity:value];
 				[(GPUImageSepiaFilter *)self.filterFront setIntensity:value];
@@ -879,15 +935,18 @@ static const NSDictionary *filterTypeDic;
 				[(GPUImageCrosshatchFilter *)self.filterFront setCrossHatchSpacing:value];
 
 			} break;
+			
 			case GPUIMAGE_SWIRL: {
 				[(GPUImageSwirlFilter *)self.filterBack setAngle:value];
 				[(GPUImageSwirlFilter *)self.filterFront setAngle:value];
 			} break;
+			
 			case GPUIMAGE_EMBOSS:{
 				//	漫画
 				[(GPUImageEmbossFilter *)self.filterBack setIntensity:value]; 
 				[(GPUImageEmbossFilter *)self.filterFront setIntensity:value];
 			}break;
+			
 			case GPUIMAGE_PIXELLATE: {
 				[(GPUImagePixellateFilter *)self.filterBack setFractionalWidthOfAPixel:value];
 				[(GPUImagePixellateFilter *)self.filterFront setFractionalWidthOfAPixel:value];
@@ -898,20 +957,24 @@ static const NSDictionary *filterTypeDic;
 				[(GPUImageVignetteFilter *)self.filterFront setVignetteEnd:value];
 
 			} break;
+			
 			case GPUIMAGE_GAUSSIAN: {
 				[(GPUImageGaussianBlurFilter *)self.filterBack setBlurSize:value];
 				[(GPUImageGaussianBlurFilter *)self.filterFront setBlurSize:value];
 				
 			} break;
+			
 			case GPUIMAGE_BULGE:{
 				[(GPUImageBulgeDistortionFilter *)self.filterBack setScale:value]; 
 				[(GPUImageBulgeDistortionFilter *)self.filterFront setScale:value]; 
 			}break;
+			
 			case GPUIMAGE_SHARPEN: {
 				//锐化
 				[(GPUImageSharpenFilter *)self.filterBack setSharpness:value]; 
 				[(GPUImageSharpenFilter *)self.filterFront setSharpness:value]; 
 			}break;
+			
 			case GPUIMAGE_MONOCHROME: {
 				[(GPUImageMonochromeFilter *)self.filterBack setIntensity:value]; 
 				[(GPUImageMonochromeFilter *)self.filterFront setIntensity:value]; 
@@ -920,6 +983,6 @@ static const NSDictionary *filterTypeDic;
 			default: break;
 		}
 
-	}while (0);
+	
 }
 @end

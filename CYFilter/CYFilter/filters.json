@@ -126,7 +126,12 @@
 		"filterAction": "GPUImageRGBFilter",
 		"filterTypeID": 19,
 		"filterTypeEnum":"GPUIMAGE_RGB"
+	},
+	{
+		"filterName": "Test",
+		"filterAction": "CYYellowCake",
+		"filterTypeID": 19,
+		"filterTypeEnum":"GPUIMAGE_NONE"
 	}
-
  
 ]

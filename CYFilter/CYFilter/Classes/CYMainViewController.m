@@ -60,11 +60,23 @@
 //	[self presentModalViewController:showCaseFilterViewController animated:YES];
 ////	[self.navigationController pushViewController:showCaseFilterViewController animated:YES];
 //	[showCaseFilterViewController release];
+	
+	
 	CYImagePickerController *showCaseFilterViewController = [[CYImagePickerController alloc]init];
 	[self presentModalViewController:showCaseFilterViewController animated:YES];
 	//	[self.navigationController pushViewController:showCaseFilterViewController animated:YES];
 	[showCaseFilterViewController release];
 
+//	NSString *path = [[NSBundle mainBundle]pathForResource:@"test" ofType:@"JPG"];
+//	UIImage *testImage = [UIImage imageWithContentsOfFile:path];
+//
+//	CYImagePickerController *showCaseFilterViewController = [[CYImagePickerController alloc]initWithState:CYImagePickerStateEditing 
+//																								editImage:testImage];
+//	[self presentModalViewController:showCaseFilterViewController animated:YES];
+//
+//	//	[self.navigationController pushViewController:showCaseFilterViewController animated:YES];
+//	[showCaseFilterViewController release];
+	
 }
 
 - (void)viewDidLoad
