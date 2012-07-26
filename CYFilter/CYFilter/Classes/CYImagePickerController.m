@@ -7,7 +7,7 @@
 //
 
 #import "CYImagePickerController.h"
-#import "CYYellowCake.h"
+#import "CYFilter.h"
 static const NSInteger kFiltersCount = 20;
 static const CGFloat kFilterSelectViewHeight = 40;
 static const CGFloat kFilterSelectViewWidth  = 320;
@@ -210,6 +210,8 @@ static const NSDictionary *filterTypeDic;
 						 @"GPUIMAGE_FILECONFIG",
 						 @"GPUIMAGE_FILTERGROUP",
 						 @"GPUIMAGE_NUMFILTERS",
+						 @"GPUIMAGE_GLASSSPHERE",
+						 @"GPUIMAGE_HUE",
 						 nil];
 		
 		NSMutableArray *objects = [NSMutableArray arrayWithCapacity:keys.count];
@@ -262,8 +264,6 @@ static const NSDictionary *filterTypeDic;
 		
 //		_stillCameraFront.runBenchmark = YES;
 	}
-	//默认是无滤镜效果
-	//	self.filterType = GPUIMAGE_NONE;
 //	self.filterType = GPUIMAGE_SATURATION;
 	
 	self.filterClasssNameString = @"GPUImageSepiaFilter";
@@ -301,8 +301,7 @@ static const NSDictionary *filterTypeDic;
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-	
-	
+
 }
 
 - (void)viewDidUnload
@@ -389,20 +388,25 @@ static const NSDictionary *filterTypeDic;
 		UIScrollView *filterSelectView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 440 - size, 320, size)];
 		filterSelectView.userInteractionEnabled = YES;
 		filterSelectView.backgroundColor = [UIColor redColor];
-		NSInteger count = kFiltersCount;
+		
+		NSInteger count =  [self.jsonObjectArray count]; // kFiltersCount;
 		NSInteger x = 0;
-		filterSelectView.contentSize = CGSizeMake(count * size, size);
+		CGFloat buttonWidth = size * 3;
+		CGFloat buttonHeight = size;
+		filterSelectView.contentSize = CGSizeMake(count * buttonWidth, buttonHeight);
 		for (int i = 0 ; i < count; i ++) {
-			x = i * size;
+			x = i * buttonWidth;
 			UIButton *oneeffect = [UIButton buttonWithType:UIButtonTypeCustom];
-			[oneeffect setFrame:CGRectMake(x, 0, size, size)];
+			[oneeffect setFrame:CGRectMake(x, 0, buttonWidth, buttonHeight )];
+			
 			//add filter select button to scroll view
 			if (0 == i % 2) {
 				[oneeffect setBackgroundColor:[UIColor blueColor]];
 			}else {
 				[oneeffect setBackgroundColor:[UIColor greenColor]];
 			}
-			[oneeffect setTitle:[NSString stringWithFormat:@"%d",i + 1] forState:UIControlStateNormal];
+			NSString *titile = [[self.jsonObjectArray objectAtIndex:i] objectForKey:@"filterName"];
+			[oneeffect setTitle:[NSString stringWithFormat:@"%@%d",titile,i + 1] forState:UIControlStateNormal];
 			oneeffect.tag = i; //编号
 			[oneeffect addTarget:self action:@selector(selectFilter:) forControlEvents:UIControlEventTouchUpInside];
 			[filterSelectView addSubview:oneeffect];
@@ -424,7 +428,7 @@ static const NSDictionary *filterTypeDic;
 		turnCameraDeviceButton.backgroundColor =[UIColor clearColor];
 		turnCameraDeviceButton.layer.cornerRadius = 20;
 		turnCameraDeviceButton.layer.masksToBounds = YES;
-		turnCameraDeviceButton.alpha = 0.5;
+		turnCameraDeviceButton.alpha = 0.4;
 		[turnCameraDeviceButton setTitle:@"切换" forState:UIControlStateNormal];
 	
 		[turnCameraDeviceButton addTarget:self
@@ -444,7 +448,7 @@ static const NSDictionary *filterTypeDic;
 																	   kBottomBarViewWidth, 
 																	   kBottomBarViewHeight)];
 		bottomBarView.backgroundColor = [UIColor grayColor];
-		bottomBarView.alpha = 0.7;
+		bottomBarView.alpha = 1;
 		bottomBarView.userInteractionEnabled = YES;
 		_bottomBarView = bottomBarView;
 		[_bottomBarView addSubview:self.startCaptureButton];
@@ -543,34 +547,34 @@ static const NSDictionary *filterTypeDic;
 		self.cameraDevice = UIImagePickerControllerCameraDeviceFront;
 		transtion.subtype = kCATransitionFromRight;   /* 动画方向*/
 		
-		self.filterBackView.alpha = 0.0;
+//		self.filterBackView.alpha = 0.0;
 #warning 此处只好旋转一下，不知道是不是初始化的时候有问题,待查!!!!
 		if ([_stillCameraFront cameraPosition] != AVCaptureDevicePositionFront) {
 			[_stillCameraFront rotateCamera];
 		}
-		self.filterFrontView.alpha = 1.0;
-		[_stillCameraBack stopCameraCapture];
+//		self.filterFrontView.alpha = 1.0;
+//		[_stillCameraBack stopCameraCapture];
 //		[_stillCameraFront startCameraCapture];
 		[self prepareTarget];
-
+	
 	}else {
 		self.cameraDevice = UIImagePickerControllerCameraDeviceRear;
 		transtion.subtype = kCATransitionFromLeft;
 		
-		self.filterFrontView.alpha = 0.0;
-		self.filterBackView.alpha = 1.0;
+//		self.filterFrontView.alpha = 0.0;
+//		self.filterBackView.alpha = 1.0;
 		
-		[_stillCameraFront stopCameraCapture];
+//		[_stillCameraFront stopCameraCapture];
 //		[_stillCameraBack startCameraCapture];
-		[self prepareTarget];
-
+		[self prepareTarget]; 
 	}
-	
+
 	[self.view exchangeSubviewAtIndex:index1 withSubviewAtIndex:index2];
-	[self.filterBackView.layer removeAllAnimations];
-	[self.filterFrontView.layer removeAllAnimations];
-	[self.filterFrontView.layer addAnimation:transtion forKey:@"transitionFilterView"];
-	[self.filterBackView.layer addAnimation:transtion forKey:@"transitionFilterView"];
+//	
+//	[self.filterBackView.layer removeAllAnimations];
+//	[self.filterFrontView.layer removeAllAnimations];
+//	[self.filterFrontView.layer addAnimation:transtion forKey:@"transitionFilterView"];
+//	[self.filterBackView.layer addAnimation:transtion forKey:@"transitionFilterView"];
 }	
 
 /*
@@ -618,9 +622,6 @@ static const NSDictionary *filterTypeDic;
 		
 		[filterView.layer removeAllAnimations];
 		[stillCamera resumeCameraCapture];
-		NSLog(@"%d camera retain count",[stillCamera retainCount]);
-		NSLog(@"%d filterview retain count",[filterView retainCount]);
-
 		[NSThread detachNewThreadSelector:@selector(saveImageToAlbum:) toTarget:self withObject:dataForPNGFile];
 	}];
 }
@@ -788,13 +789,14 @@ static const NSDictionary *filterTypeDic;
 			self.filterFront = filterFront; //重新创建滤镜类
 			CY_RELEASE_SAFELY(filterFront);
 		}
-	}else {
-		GPUImageOutput<GPUImageInput> *filterBack= ((CYYellowCake *)[[filterClass alloc]init]).finallyFilter;
+	}else { 
+		//	自定义的滤镜
+		GPUImageOutput<GPUImageInput> *filterBack= ((CYFilterYellowCake *)[[filterClass alloc]init]).finallyFilter;
 		self.filterBack = filterBack; //重新创建滤镜类
 		CY_RELEASE_SAFELY(filterBack);
 		
 		if (CYImagePickerStateCapture == _pickerState) {
-			GPUImageOutput<GPUImageInput> *filterFront=  ((CYYellowCake *)[[filterClass alloc]init]).finallyFilter;
+			GPUImageOutput<GPUImageInput> *filterFront=  ((CYFilterYellowCake *)[[filterClass alloc]init]).finallyFilter;
 			self.filterFront = filterFront; //重新创建滤镜类
 			CY_RELEASE_SAFELY(filterFront);
 		}
@@ -807,30 +809,35 @@ static const NSDictionary *filterTypeDic;
 - (void)prepareTarget{
 	if (_pickerState == CYImagePickerStateCapture) { // 实时滤镜
 				
-		//	一些特殊滤镜的附加处理,如：各种混合模式滤镜,滤镜组合
+		//	一些特殊滤镜的附加处理,如：各种混合模式滤镜,滤镜组合时的一些初始化
 		[self additionFilterInit];
 		
 		[_stillCameraBack removeAllTargets];
 		[self.filterBack prepareForImageCapture];
 		[_stillCameraBack addTarget:self.filterBack];
 		
+		
 		[_stillCameraFront removeAllTargets];
 		[self.filterFront prepareForImageCapture];
 		[_stillCameraFront addTarget:self.filterFront];
 
-		//	后部摄像头滤镜设置
+		//	摄像头滤镜设置
 		[self.filterBack addTarget:self.filterBackView];
-
-		//	前部摄像头滤镜设置
 		[self.filterFront addTarget:self.filterFrontView];
 
 		//	开始采集
 		if (UIImagePickerControllerCameraDeviceRear == self.cameraDevice) { 
+			[_stillCameraFront pauseCameraCapture];
 			[_stillCameraBack startCameraCapture];
+			[_stillCameraBack resumeCameraCapture];
 			[_stillCameraFront stopCameraCapture];
+
 		}else {
+			[_stillCameraBack pauseCameraCapture];
 			[_stillCameraFront startCameraCapture];
+			[_stillCameraFront resumeCameraCapture];
 			[_stillCameraBack stopCameraCapture];
+
 		}
 	}else {
 		[_editPicture removeAllTargets];
@@ -979,7 +986,15 @@ static const NSDictionary *filterTypeDic;
 				[(GPUImageMonochromeFilter *)self.filterBack setIntensity:value]; 
 				[(GPUImageMonochromeFilter *)self.filterFront setIntensity:value]; 
 			}break;
+			case GPUIMAGE_GLASSSPHERE:{
+				[(GPUImageGlassSphereFilter *)self.filterBack setRadius:value];
+				[(GPUImageGlassSphereFilter *)self.filterFront setRadius:value];
+				[(GPUImageGlassSphereFilter *)self.filterBack setRefractiveIndex: 0.6];
+				[(GPUImageGlassSphereFilter *)self.filterFront setRefractiveIndex: 0.6];
+//				[(GPUImageGlassSphereFilter *)self.filterBack setCenter: CGPointMake(0, 0)];
+//				[(GPUImageGlassSphereFilter *)self.filterFront setCenter: CGPointMake(0, 0)];
 
+			}break;
 			default: break;
 		}
 

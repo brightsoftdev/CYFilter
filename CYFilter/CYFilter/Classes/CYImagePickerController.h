@@ -96,6 +96,7 @@ typedef enum {
     GPUIMAGE_FILTERGROUP,
     GPUIMAGE_NUMFILTERS,
 	GPUIMAGE_GLASSSPHERE,
+	GPUIMAGE_HUE,
 	GPUIMAGE_LAST //最后一个标记
 } GPUImageShowcaseFilterType; 
 

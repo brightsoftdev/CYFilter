@@ -8,6 +8,6 @@
 
 #import "CYFilterChain.h"
 
-@interface CYYellowCake : CYFilterChain
+@interface CYFilterYellowCake : CYFilterChain
 
 @end

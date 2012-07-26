@@ -7,9 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@class GPUImageOutput;
-@protocol GPUImageInput ;
+#import "GPUImage.h"
 
 typedef enum {
 	
@@ -18,6 +16,11 @@ typedef enum {
 	
 }CYCaptureStatue;
 
+
+/*
+	通过滤镜链可以自己添加一些滤镜的组合，定制流程如CYYellowCake所示。
+	同时需要往filter.json中添加一条纪录
+ */
 @interface CYFilterChain : NSObject
 
 /*

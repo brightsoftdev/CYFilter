@@ -1,11 +1,10 @@
 [
     {
-        "filterName": "Sepia",
-        "filterAction": "GPUImageSepiaFilter",
+        "filterName": "Toon",
+        "filterAction": "CYFilterToon",
         "filterTypeID": 1,
-		"filterTypeEnum":"GPUIMAGE_SEPIA",
-		"previewImage": "filterExampleSepiaTone.png",
-		"value":0.5e0
+		"filterTypeEnum":"GPUIMAGE_NONE",
+		"previewImage": "filterExampleSepiaTone.png"
     },
     {
         "filterName": "Crosshatch",
@@ -18,8 +17,7 @@
 		"filterName": "Sketch",
 		"filterAction": "GPUImageSketchFilter",
 		"filterTypeID": 3,
-		"filterTypeEnum":"GPUIMAGE_SKETCH",
-		"value":0.5e0
+		"filterTypeEnum":"GPUIMAGE_SKETCH"
 	},
 	{
 		"filterName": "Swirl",
@@ -36,10 +34,10 @@
 		"value":1.0e0
 	},
 	{
-		"filterName": "Sketch",
-		"filterAction": "GPUImageSketchFilter",
+		"filterName": "Hue",
+		"filterAction": "GPUImageHueFilter",
 		"filterTypeID": 6,
-		"filterTypeEnum":"GPUIMAGE_SKETCH"
+		"filterTypeEnum":"GPUIMAGE_HUE"
 	},
 	{
 		"filterName": "ColorInvert",
@@ -59,7 +57,7 @@
 		"filterAction": "GPUImagePixellateFilter",
 		"filterTypeID": 9,
 		"filterTypeEnum":"GPUIMAGE_PIXELLATE",
-		"value":0.1e-3
+		"value":0.3e-3
 	},
 	{
 		"filterName": "SobelEdgeDetection",
@@ -90,10 +88,11 @@
 		"value":1.0e0
 	},
 	{
-		"filterName": "DissolveBlend",
-		"filterAction": "GPUImageDissolveBlendFilter",
+		"filterName": "GlassSphere",
+		"filterAction": "GPUImageGlassSphereFilter",
 		"filterTypeID": 14,
-		"filterTypeEnum":"GPUIMAGE_DISSOLVEBLEND"
+		"filterTypeEnum":"GPUIMAGE_GLASSSPHERE",
+		"value":0.63e0
 	},
 	{
 		"filterName": "FilterGroup",
@@ -129,9 +128,16 @@
 	},
 	{
 		"filterName": "Test",
-		"filterAction": "CYYellowCake",
-		"filterTypeID": 19,
+		"filterAction": "CYFilterYellowCake",
+		"filterTypeID": 20,
 		"filterTypeEnum":"GPUIMAGE_NONE"
 	}
- 
+	 ,
+	 {
+	 "filterName": "BlueValentine",
+	 "filterAction": "CYFilterBlueValentine",
+	 "filterTypeID": 21,
+	 "filterTypeEnum":"GPUIMAGE_NONE"
+	 }
+  
 ]
