@@ -15,14 +15,12 @@
 	if (self = [super init]) {
 		GPUImageGlassSphereFilter *glassFilter = [[GPUImageGlassSphereFilter alloc]init];
 		[glassFilter setRadius:0.65];
-		
 		[self addFilterToChain:glassFilter];
 		[glassFilter release];
-		
+		 
 		GPUImageMonochromeFilter *monoFilter = [[GPUImageMonochromeFilter alloc] init];
 		[monoFilter setColor:(GPUVector4){1.0f, 1.0f, 0.0f, 1.0f}];
 		[monoFilter setIntensity:0.2];
-		
 		[self addFilterToChain:monoFilter];
 		[monoFilter release];
 		

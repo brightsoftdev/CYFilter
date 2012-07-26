@@ -32,6 +32,7 @@
 		E566FD7F15B0108F0080D2D5 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E566FD7E15B0108F0080D2D5 /* CoreMedia.framework */; };
 		E566FD8115B010A40080D2D5 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E566FD8015B010A40080D2D5 /* CoreVideo.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		E566FD8315B010B40080D2D5 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E566FD8215B010B40080D2D5 /* QuartzCore.framework */; };
+		E5931D9315C15B7A00DFE440 /* CYFilterSunShine.m in Sources */ = {isa = PBXBuildFile; fileRef = E5931D9215C15B7A00DFE440 /* CYFilterSunShine.m */; };
 		E595360515B930F70027922B /* CYImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = E595360415B930F70027922B /* CYImagePickerController.m */; };
 		E5A5A10915B41C9E005CFE0A /* CYFiltersManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E5A5A10815B41C9E005CFE0A /* CYFiltersManager.m */; };
 		E5A5A10C15B4FF96005CFE0A /* filters.json in Resources */ = {isa = PBXBuildFile; fileRef = E5A5A10B15B4FF96005CFE0A /* filters.json */; };
@@ -109,6 +110,8 @@
 		E566FD7E15B0108F0080D2D5 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		E566FD8015B010A40080D2D5 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		E566FD8215B010B40080D2D5 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		E5931D9115C15B7A00DFE440 /* CYFilterSunShine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CYFilterSunShine.h; path = Classes/CYFilter/CYFilterSunShine.h; sourceTree = "<group>"; };
+		E5931D9215C15B7A00DFE440 /* CYFilterSunShine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CYFilterSunShine.m; path = Classes/CYFilter/CYFilterSunShine.m; sourceTree = "<group>"; };
 		E595360215B930AA0027922B /* CYImagePickController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CYImagePickController.h; path = Classes/CYImagePickController.h; sourceTree = "<group>"; };
 		E595360315B930F70027922B /* CYImagePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CYImagePickerController.h; path = Classes/CYImagePickerController.h; sourceTree = "<group>"; };
 		E595360415B930F70027922B /* CYImagePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CYImagePickerController.m; path = Classes/CYImagePickerController.m; sourceTree = "<group>"; };
@@ -147,16 +150,18 @@
 			isa = PBXGroup;
 			children = (
 				E55FF57915C12AEF00C0BA94 /* CYFilter.h */,
-				E55FF57A15C12AEF00C0BA94 /* CYFilterBlueValentine.h */,
-				E55FF57B15C12AEF00C0BA94 /* CYFilterBlueValentine.m */,
 				E55FF57C15C12AEF00C0BA94 /* CYFilterChain.h */,
 				E55FF57D15C12AEF00C0BA94 /* CYFilterChain.m */,
+				E55FF57A15C12AEF00C0BA94 /* CYFilterBlueValentine.h */,
+				E55FF57B15C12AEF00C0BA94 /* CYFilterBlueValentine.m */,
 				E55FF57E15C12AEF00C0BA94 /* CYFilterFishEye.h */,
 				E55FF57F15C12AEF00C0BA94 /* CYFilterFishEye.m */,
 				E55FF58015C12AEF00C0BA94 /* CYFilterYellowCake.h */,
 				E55FF58115C12AEF00C0BA94 /* CYFilterYellowCake.m */,
 				E55FF58615C1380300C0BA94 /* CYFilterToon.h */,
 				E55FF58715C1380300C0BA94 /* CYFilterToon.m */,
+				E5931D9115C15B7A00DFE440 /* CYFilterSunShine.h */,
+				E5931D9215C15B7A00DFE440 /* CYFilterSunShine.m */,
 			);
 			name = Filters;
 			sourceTree = "<group>";
@@ -395,6 +400,7 @@
 				E55FF58415C12AEF00C0BA94 /* CYFilterFishEye.m in Sources */,
 				E55FF58515C12AEF00C0BA94 /* CYFilterYellowCake.m in Sources */,
 				E55FF58815C1380300C0BA94 /* CYFilterToon.m in Sources */,
+				E5931D9315C15B7A00DFE440 /* CYFilterSunShine.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

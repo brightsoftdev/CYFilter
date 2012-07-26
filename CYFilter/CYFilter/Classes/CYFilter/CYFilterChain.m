@@ -67,7 +67,7 @@
 	
 	[_finallyFilter removeAllTargets];
 	
-	//	将整个链路里面的滤镜串起来
+	//	将整个链路里面的滤镜串起来,转化为最终的GPUImageFilterGroup输出
 	GPUImageFilter *filter = [self.filters objectAtIndex:0];
 	GPUImageFilter *lastFilter = filter;
 	
@@ -76,6 +76,7 @@
 	NSInteger count = [self.filters count];
 	for (NSUInteger i = 1; i < count; i++) {
 		filter = [self.filters objectAtIndex:i];
+		
 		[filter prepareForImageCapture];
 		[(GPUImageFilterGroup *)_finallyFilter addFilter:filter];
 		

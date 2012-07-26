@@ -13,4 +13,5 @@
 #import "CYFilterFishEye.h"
 #import "CYFilterBlueValentine.h"
 #import "CYFilterToon.h"
+#import "CYFilterSunShine.h"
 #endif
