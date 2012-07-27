@@ -353,8 +353,6 @@ static const NSDictionary *filterTypeDic;
 																	0,
 																	screen.bounds.size.width, 
 																	screen.bounds.size.height - kBottomBarViewHeight )];
-		NSLog(@"filterView.fram = %@",_filterBackView.frame);
-		_filterBackView.backgroundColor = [UIColor clearColor];
 	}
 	return _filterBackView;
 }
@@ -368,7 +366,6 @@ static const NSDictionary *filterTypeDic;
 																		0,
 																		screen.bounds.size.width, 
 																		screen.bounds.size.height - kBottomBarViewHeight )];
-		NSLog(@"filterView.fram = %@",_filterFrontView.frame);
 		_filterFrontView.backgroundColor = [UIColor clearColor];
 		NSLog(@"%d camera retain count",[_filterFrontView retainCount]);
 

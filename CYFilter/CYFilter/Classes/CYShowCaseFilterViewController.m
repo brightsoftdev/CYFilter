@@ -363,7 +363,7 @@
             self.title = @"Gamma";
             self.filterSettingsSlider.hidden = NO;
             
-            [self.filterSettingsSlider setMinimumValue:0.0];
+            [self.filterSettingsSlider setMinimumValue: 0.0];
             [self.filterSettingsSlider setMaximumValue:3.0];
             [self.filterSettingsSlider setValue:1.0];
             

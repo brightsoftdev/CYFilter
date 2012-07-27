@@ -32,6 +32,9 @@
 		E566FD7F15B0108F0080D2D5 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E566FD7E15B0108F0080D2D5 /* CoreMedia.framework */; };
 		E566FD8115B010A40080D2D5 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E566FD8015B010A40080D2D5 /* CoreVideo.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		E566FD8315B010B40080D2D5 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E566FD8215B010B40080D2D5 /* QuartzCore.framework */; };
+		E576DA6215C2336300CE478B /* CYFilterMatrix4x4.m in Sources */ = {isa = PBXBuildFile; fileRef = E576DA6115C2336300CE478B /* CYFilterMatrix4x4.m */; };
+		E576DA6515C241DD00CE478B /* CYFilterPixCrazy.m in Sources */ = {isa = PBXBuildFile; fileRef = E576DA6415C241DD00CE478B /* CYFilterPixCrazy.m */; };
+		E576DA6815C245E400CE478B /* GPUImagePixellateCrazyFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = E576DA6715C245E400CE478B /* GPUImagePixellateCrazyFilter.m */; };
 		E5931D9315C15B7A00DFE440 /* CYFilterSunShine.m in Sources */ = {isa = PBXBuildFile; fileRef = E5931D9215C15B7A00DFE440 /* CYFilterSunShine.m */; };
 		E595360515B930F70027922B /* CYImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = E595360415B930F70027922B /* CYImagePickerController.m */; };
 		E5A5A10915B41C9E005CFE0A /* CYFiltersManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E5A5A10815B41C9E005CFE0A /* CYFiltersManager.m */; };
@@ -41,6 +44,7 @@
 		E5BF4FC415B56B1100F017D5 /* mask.png in Resources */ = {isa = PBXBuildFile; fileRef = E5BF4FB115B56B1100F017D5 /* mask.png */; };
 		E5BF4FC515B56B1100F017D5 /* squares.png in Resources */ = {isa = PBXBuildFile; fileRef = E5BF4FB215B56B1100F017D5 /* squares.png */; };
 		E5BF4FC615B56B1100F017D5 /* voroni_points2.png in Resources */ = {isa = PBXBuildFile; fileRef = E5BF4FB315B56B1100F017D5 /* voroni_points2.png */; };
+		E5FF7EF115C274D0009AA970 /* CYFilterMosaic.m in Sources */ = {isa = PBXBuildFile; fileRef = E5FF7EF015C274D0009AA970 /* CYFilterMosaic.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -110,6 +114,12 @@
 		E566FD7E15B0108F0080D2D5 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		E566FD8015B010A40080D2D5 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		E566FD8215B010B40080D2D5 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		E576DA6015C2336200CE478B /* CYFilterMatrix4x4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CYFilterMatrix4x4.h; path = Classes/CYFilter/CYFilterMatrix4x4.h; sourceTree = "<group>"; };
+		E576DA6115C2336300CE478B /* CYFilterMatrix4x4.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CYFilterMatrix4x4.m; path = Classes/CYFilter/CYFilterMatrix4x4.m; sourceTree = "<group>"; };
+		E576DA6315C241DD00CE478B /* CYFilterPixCrazy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CYFilterPixCrazy.h; path = Classes/CYFilter/CYFilterPixCrazy.h; sourceTree = "<group>"; };
+		E576DA6415C241DD00CE478B /* CYFilterPixCrazy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CYFilterPixCrazy.m; path = Classes/CYFilter/CYFilterPixCrazy.m; sourceTree = "<group>"; };
+		E576DA6615C245E400CE478B /* GPUImagePixellateCrazyFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GPUImagePixellateCrazyFilter.h; path = Classes/CYFilter/GPUImagePixellateCrazyFilter.h; sourceTree = "<group>"; };
+		E576DA6715C245E400CE478B /* GPUImagePixellateCrazyFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GPUImagePixellateCrazyFilter.m; path = Classes/CYFilter/GPUImagePixellateCrazyFilter.m; sourceTree = "<group>"; };
 		E5931D9115C15B7A00DFE440 /* CYFilterSunShine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CYFilterSunShine.h; path = Classes/CYFilter/CYFilterSunShine.h; sourceTree = "<group>"; };
 		E5931D9215C15B7A00DFE440 /* CYFilterSunShine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CYFilterSunShine.m; path = Classes/CYFilter/CYFilterSunShine.m; sourceTree = "<group>"; };
 		E595360215B930AA0027922B /* CYImagePickController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CYImagePickController.h; path = Classes/CYImagePickController.h; sourceTree = "<group>"; };
@@ -124,6 +134,8 @@
 		E5BF4FB115B56B1100F017D5 /* mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = mask.png; path = Resources/mask.png; sourceTree = "<group>"; };
 		E5BF4FB215B56B1100F017D5 /* squares.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = squares.png; path = Resources/squares.png; sourceTree = "<group>"; };
 		E5BF4FB315B56B1100F017D5 /* voroni_points2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = voroni_points2.png; path = Resources/voroni_points2.png; sourceTree = "<group>"; };
+		E5FF7EEF15C274D0009AA970 /* CYFilterMosaic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CYFilterMosaic.h; path = Classes/CYFilter/CYFilterMosaic.h; sourceTree = "<group>"; };
+		E5FF7EF015C274D0009AA970 /* CYFilterMosaic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CYFilterMosaic.m; path = Classes/CYFilter/CYFilterMosaic.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +174,14 @@
 				E55FF58715C1380300C0BA94 /* CYFilterToon.m */,
 				E5931D9115C15B7A00DFE440 /* CYFilterSunShine.h */,
 				E5931D9215C15B7A00DFE440 /* CYFilterSunShine.m */,
+				E576DA6015C2336200CE478B /* CYFilterMatrix4x4.h */,
+				E576DA6115C2336300CE478B /* CYFilterMatrix4x4.m */,
+				E576DA6315C241DD00CE478B /* CYFilterPixCrazy.h */,
+				E576DA6415C241DD00CE478B /* CYFilterPixCrazy.m */,
+				E576DA6615C245E400CE478B /* GPUImagePixellateCrazyFilter.h */,
+				E576DA6715C245E400CE478B /* GPUImagePixellateCrazyFilter.m */,
+				E5FF7EEF15C274D0009AA970 /* CYFilterMosaic.h */,
+				E5FF7EF015C274D0009AA970 /* CYFilterMosaic.m */,
 			);
 			name = Filters;
 			sourceTree = "<group>";
@@ -401,6 +421,10 @@
 				E55FF58515C12AEF00C0BA94 /* CYFilterYellowCake.m in Sources */,
 				E55FF58815C1380300C0BA94 /* CYFilterToon.m in Sources */,
 				E5931D9315C15B7A00DFE440 /* CYFilterSunShine.m in Sources */,
+				E576DA6215C2336300CE478B /* CYFilterMatrix4x4.m in Sources */,
+				E576DA6515C241DD00CE478B /* CYFilterPixCrazy.m in Sources */,
+				E576DA6815C245E400CE478B /* GPUImagePixellateCrazyFilter.m in Sources */,
+				E5FF7EF115C274D0009AA970 /* CYFilterMosaic.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -5,7 +5,13 @@
         "filterTypeID": 1,
 		"filterTypeEnum":"GPUIMAGE_NONE",
 		"previewImage": "filterExampleSepiaTone.png"
-    },
+	},
+	{
+	 "filterName": "Matrix4x4",
+	 "filterAction": "CYFilterMatrix4x4",
+	 "filterTypeID": 2,
+	 "filterTypeEnum":"GPUIMAGE_NONE"
+	},
     {
         "filterName": "Crosshatch",
         "filterAction": "GPUImageCrosshatchFilter",
@@ -88,11 +94,10 @@
 		"value":1.0e0
 	},
 	{
-		"filterName": "GlassSphere",
-		"filterAction": "GPUImageGlassSphereFilter",
+		"filterName": "Mosaic",
+		"filterAction": "GPUImageMosaicFilter",
 		"filterTypeID": 14,
-		"filterTypeEnum":"GPUIMAGE_GLASSSPHERE",
-		"value":0.63e0
+		"filterTypeEnum":"GPUIMAGE_NONE"
 	},
 	{
 		"filterName": "FilterGroup",
@@ -145,6 +150,11 @@
 	 "filterAction": "CYFilterSunShine",
 	 "filterTypeID": 22,
 	 "filterTypeEnum":"GPUIMAGE_NONE"
+	 },
+	 {
+		"filterName": "PixCrazy",
+		"filterAction": "CYFilterPixCrazy",
+		"filterTypeID": 23,
+		"filterTypeEnum":"GPUIMAGE_NONE"
 	 }
-  
 ]

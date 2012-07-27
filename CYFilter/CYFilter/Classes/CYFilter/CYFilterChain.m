@@ -58,7 +58,10 @@
 		return nil;
 	}
 	if ([self.filters count] == 1) {
-		return (GPUImageOutput<GPUImageInput> *)[self.filters objectAtIndex:0];
+		
+		GPUImageOutput<GPUImageInput> * filter = [self.filters objectAtIndex:0];
+		[filter prepareForImageCapture];
+		return filter;
 	}
 	
 	if (!_finallyFilter) {
