@@ -1,4 +1,9 @@
 [
+ {
+ "filterName": "NONE",
+ "filterAction": "xxxxxxxxx",
+ "filterTypeID": 0
+ },
     {
         "filterName": "Toon",
         "filterAction": "CYFilterToon",
@@ -63,7 +68,7 @@
 		"filterAction": "GPUImagePixellateFilter",
 		"filterTypeID": 9,
 		"filterTypeEnum":"GPUIMAGE_PIXELLATE",
-		"value":0.08e-1
+		"value":0.05e-1
 	},
 	{
 		"filterName": "SobelEdgeDetection",
@@ -92,12 +97,6 @@
 		"filterTypeID": 13,
 		"filterTypeEnum":"GPUIMAGE_BULGE",
 		"value":1.0e0
-	},
-	{
-		"filterName": "Mosaic",
-		"filterAction": "GPUImageMosaicFilter",
-		"filterTypeID": 14,
-		"filterTypeEnum":"GPUIMAGE_NONE"
 	},
 	{
 		"filterName": "FilterGroup",

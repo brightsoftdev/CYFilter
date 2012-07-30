@@ -33,6 +33,7 @@
 {
     [_filters removeAllObjects];
     _filters = nil;
+	self.finallyFilter = nil;
 	[super dealloc];
 }
 

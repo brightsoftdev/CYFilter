@@ -20,7 +20,7 @@
 		//单色
 		GPUImageMonochromeFilter *monoFilter = [[GPUImageMonochromeFilter alloc] init];
 		[monoFilter setColor:(GPUVector4){0.0f, 0.0f, 1.0f, 1.0f}];
-		[monoFilter setIntensity:0.15];
+		[monoFilter setIntensity:0.015];
 		
 		//光晕
 		GPUImageVignetteFilter *vigFilter = [[GPUImageVignetteFilter alloc] init];

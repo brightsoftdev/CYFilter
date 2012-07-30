@@ -16,3 +16,4 @@
 
 #import "CYUserMacroDefine.h" //	用户宏定义
 #import "SBJSON.h"			  //	json解析库
+#import "Categories.h"

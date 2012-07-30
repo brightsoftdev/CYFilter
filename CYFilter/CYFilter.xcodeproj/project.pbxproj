@@ -13,6 +13,8 @@
 		E51C970B15BCF869002871F9 /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = E51C970415BCF869002871F9 /* SBJsonBase.m */; };
 		E51C970C15BCF869002871F9 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = E51C970615BCF869002871F9 /* SBJsonParser.m */; };
 		E51C970D15BCF869002871F9 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = E51C970815BCF869002871F9 /* SBJsonWriter.m */; };
+		E533BC2A15C3C84D00A60D22 /* UIDevice+UIDeviceExt.m in Sources */ = {isa = PBXBuildFile; fileRef = E533BC2915C3C84D00A60D22 /* UIDevice+UIDeviceExt.m */; };
+		E533BC2D15C3C98000A60D22 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E533BC2C15C3C97F00A60D22 /* CoreTelephony.framework */; };
 		E55FF55315C11EC600C0BA94 /* libGPUImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E55FF54E15C11E1800C0BA94 /* libGPUImage.a */; };
 		E55FF58215C12AEF00C0BA94 /* CYFilterBlueValentine.m in Sources */ = {isa = PBXBuildFile; fileRef = E55FF57B15C12AEF00C0BA94 /* CYFilterBlueValentine.m */; };
 		E55FF58315C12AEF00C0BA94 /* CYFilterChain.m in Sources */ = {isa = PBXBuildFile; fileRef = E55FF57D15C12AEF00C0BA94 /* CYFilterChain.m */; };
@@ -44,7 +46,6 @@
 		E5BF4FC415B56B1100F017D5 /* mask.png in Resources */ = {isa = PBXBuildFile; fileRef = E5BF4FB115B56B1100F017D5 /* mask.png */; };
 		E5BF4FC515B56B1100F017D5 /* squares.png in Resources */ = {isa = PBXBuildFile; fileRef = E5BF4FB215B56B1100F017D5 /* squares.png */; };
 		E5BF4FC615B56B1100F017D5 /* voroni_points2.png in Resources */ = {isa = PBXBuildFile; fileRef = E5BF4FB315B56B1100F017D5 /* voroni_points2.png */; };
-		E5FF7EF115C274D0009AA970 /* CYFilterMosaic.m in Sources */ = {isa = PBXBuildFile; fileRef = E5FF7EF015C274D0009AA970 /* CYFilterMosaic.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,6 +85,10 @@
 		E51C970615BCF869002871F9 /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonParser.m; sourceTree = "<group>"; };
 		E51C970715BCF869002871F9 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
 		E51C970815BCF869002871F9 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
+		E533BC2815C3C84D00A60D22 /* UIDevice+UIDeviceExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIDevice+UIDeviceExt.h"; path = "CYFilter/Classes/Categories/UIDevice+UIDeviceExt.h"; sourceTree = "<group>"; };
+		E533BC2915C3C84D00A60D22 /* UIDevice+UIDeviceExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIDevice+UIDeviceExt.m"; path = "CYFilter/Classes/Categories/UIDevice+UIDeviceExt.m"; sourceTree = "<group>"; };
+		E533BC2B15C3C89B00A60D22 /* Categories.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Categories.h; path = CYFilter/Classes/Categories/Categories.h; sourceTree = "<group>"; };
+		E533BC2C15C3C97F00A60D22 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		E55FF54415C11E1700C0BA94 /* GPUImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GPUImage.xcodeproj; path = framework/GPUImage.xcodeproj; sourceTree = "<group>"; };
 		E55FF57915C12AEF00C0BA94 /* CYFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CYFilter.h; path = Classes/CYFilter/CYFilter.h; sourceTree = "<group>"; };
 		E55FF57A15C12AEF00C0BA94 /* CYFilterBlueValentine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CYFilterBlueValentine.h; path = Classes/CYFilter/CYFilterBlueValentine.h; sourceTree = "<group>"; };
@@ -134,8 +139,6 @@
 		E5BF4FB115B56B1100F017D5 /* mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = mask.png; path = Resources/mask.png; sourceTree = "<group>"; };
 		E5BF4FB215B56B1100F017D5 /* squares.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = squares.png; path = Resources/squares.png; sourceTree = "<group>"; };
 		E5BF4FB315B56B1100F017D5 /* voroni_points2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = voroni_points2.png; path = Resources/voroni_points2.png; sourceTree = "<group>"; };
-		E5FF7EEF15C274D0009AA970 /* CYFilterMosaic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CYFilterMosaic.h; path = Classes/CYFilter/CYFilterMosaic.h; sourceTree = "<group>"; };
-		E5FF7EF015C274D0009AA970 /* CYFilterMosaic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CYFilterMosaic.m; path = Classes/CYFilter/CYFilterMosaic.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,6 +146,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E533BC2D15C3C98000A60D22 /* CoreTelephony.framework in Frameworks */,
 				E55FF55315C11EC600C0BA94 /* libGPUImage.a in Frameworks */,
 				E566FD8315B010B40080D2D5 /* QuartzCore.framework in Frameworks */,
 				E566FD8115B010A40080D2D5 /* CoreVideo.framework in Frameworks */,
@@ -180,8 +184,6 @@
 				E576DA6415C241DD00CE478B /* CYFilterPixCrazy.m */,
 				E576DA6615C245E400CE478B /* GPUImagePixellateCrazyFilter.h */,
 				E576DA6715C245E400CE478B /* GPUImagePixellateCrazyFilter.m */,
-				E5FF7EEF15C274D0009AA970 /* CYFilterMosaic.h */,
-				E5FF7EF015C274D0009AA970 /* CYFilterMosaic.m */,
 			);
 			name = Filters;
 			sourceTree = "<group>";
@@ -189,6 +191,7 @@
 		E51C96E815BCF6E7002871F9 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				E533BC2715C3C83400A60D22 /* Categories */,
 				E51C96FD15BCF869002871F9 /* JSON */,
 			);
 			name = Common;
@@ -212,6 +215,16 @@
 			);
 			name = JSON;
 			path = CYFilter/Common/JSON;
+			sourceTree = "<group>";
+		};
+		E533BC2715C3C83400A60D22 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				E533BC2815C3C84D00A60D22 /* UIDevice+UIDeviceExt.h */,
+				E533BC2915C3C84D00A60D22 /* UIDevice+UIDeviceExt.m */,
+				E533BC2B15C3C89B00A60D22 /* Categories.h */,
+			);
+			name = Categories;
 			sourceTree = "<group>";
 		};
 		E55FF54515C11E1700C0BA94 /* Products */ = {
@@ -243,6 +256,7 @@
 		E566F79F15AFF7640080D2D5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E533BC2C15C3C97F00A60D22 /* CoreTelephony.framework */,
 				E55FF54415C11E1700C0BA94 /* GPUImage.xcodeproj */,
 				E566FD8215B010B40080D2D5 /* QuartzCore.framework */,
 				E566FD8015B010A40080D2D5 /* CoreVideo.framework */,
@@ -260,8 +274,8 @@
 			isa = PBXGroup;
 			children = (
 				E566F93115AFF8590080D2D5 /* Classes */,
-				E566F7AF15AFF7640080D2D5 /* AppDelegate.h */,
 				E566F7B015AFF7640080D2D5 /* AppDelegate.m */,
+				E566F7AF15AFF7640080D2D5 /* AppDelegate.h */,
 				E51C96E815BCF6E7002871F9 /* Common */,
 				E5BF4F9415B56AD500F017D5 /* Resources */,
 				E566F7A715AFF7640080D2D5 /* Supporting Files */,
@@ -424,7 +438,7 @@
 				E576DA6215C2336300CE478B /* CYFilterMatrix4x4.m in Sources */,
 				E576DA6515C241DD00CE478B /* CYFilterPixCrazy.m in Sources */,
 				E576DA6815C245E400CE478B /* GPUImagePixellateCrazyFilter.m in Sources */,
-				E5FF7EF115C274D0009AA970 /* CYFilterMosaic.m in Sources */,
+				E533BC2A15C3C84D00A60D22 /* UIDevice+UIDeviceExt.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

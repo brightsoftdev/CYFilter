@@ -112,7 +112,7 @@ typedef enum{
 
 @protocol CYImagePickerControllerDelegate;
 
-@interface CYImagePickerController : UIViewController
+@interface CYImagePickerController : UIViewController<UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 {
 	
 	id<CYImagePickerControllerDelegate> _delegate;	//	代理

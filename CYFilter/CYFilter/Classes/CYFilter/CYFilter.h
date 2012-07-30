@@ -8,7 +8,7 @@
 
 #ifndef CYFilter_CYFilter_h
 #define CYFilter_CYFilter_h
-
+#import "CYFilterChain.h"
 #import "CYFilterYellowCake.h"
 #import "CYFilterFishEye.h"
 #import "CYFilterBlueValentine.h"
@@ -16,5 +16,4 @@
 #import "CYFilterSunShine.h"
 #import "CYFilterMatrix4x4.h"
 #import "CYFilterPixCrazy.h"
-#import "CYFilterMosaic.h"
 #endif
