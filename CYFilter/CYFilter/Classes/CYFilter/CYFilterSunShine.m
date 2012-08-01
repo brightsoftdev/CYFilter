@@ -12,64 +12,16 @@
 
 - (id)init{
 	if (self = [super init]) {
-//		GPUImageHighlightShadowFilter *highLightShadowFilter = [[GPUImageHighlightShadowFilter alloc]init];
-//		[highLightShadowFilter setShadows:0.7];
-//		[highLightShadowFilter setHighlights: 0.4];
-//		[self addFilterToChain:highLightShadowFilter];
-		
-		// 测试曲线调整.....待研究
-//		
-//		GPUImageToneCurveFilter *toneCorveFilter = [[GPUImageToneCurveFilter alloc]init];
-//		[toneCorveFilter setRedControlPoints:[NSArray arrayWithObjects:
-//											   [NSValue valueWithCGPoint:CGPointMake(0.0, 0.0)],
-//											   [NSValue valueWithCGPoint:CGPointMake(0.3, 0.7)], 
-//											   [NSValue valueWithCGPoint:CGPointMake(1.0, 1.0)],
-//											   nil]];
-//		[toneCorveFilter setBlueControlPoints:[NSArray arrayWithObjects:
-//											  [NSValue valueWithCGPoint:CGPointMake(0.0, 0.0)],
-//											  [NSValue valueWithCGPoint:CGPointMake(0.7, 0.3)], 
-//											  [NSValue valueWithCGPoint:CGPointMake(1.0, 1.0)],
-//											  nil]];
-//		[toneCorveFilter setRGBControlPoints:[NSArray arrayWithObjects:
-//											   [NSValue valueWithCGPoint:CGPointMake(0.0, 0.0)],
-//											   [NSValue valueWithCGPoint:CGPointMake(0.3, 0.25)],
-//											   [NSValue valueWithCGPoint:CGPointMake(0.65, 0.75)], 
-//											   [NSValue valueWithCGPoint:CGPointMake(1.0, 1.0)],
-//											   nil]];
-//		
-//		[self addFilterToChain:toneCorveFilter];
-//		[toneCorveFilter release];
-		
-		
-/////////////////////////////////////////////////////////////////
-//		//亮度
-//		GPUImageBrightnessFilter * brightFilter = [[GPUImageBrightnessFilter alloc]init];
-//		[brightFilter setBrightness:0.34];
-//		[self addFilterToChain:brightFilter];
-//		[brightFilter release];
-//		
-//		//对比度
-//		GPUImageContrastFilter *contrastFilter = [[GPUImageContrastFilter alloc]init];
-//		[contrastFilter setContrast:0.32];
-//		[self addFilterToChain:contrastFilter];
-//		[contrastFilter release];
-//		
-//		//单色
-//		GPUImageMonochromeFilter *monochromeFilter = [[ GPUImageMonochromeFilter alloc]init];
-//		[monochromeFilter setColorRed:250 green:212 blue:0];
-//		[monochromeFilter setIntensity:0.34];
-//		[self addFilterToChain:monochromeFilter];
-//		[monochromeFilter release];
-		
+
 		//亮度
 		GPUImageBrightnessFilter * brightFilter = [[GPUImageBrightnessFilter alloc]init];
-		[brightFilter setBrightness:4/150.0f];
+		[brightFilter setBrightness:4/150];
 		[self addFilterToChain:brightFilter];
 		[brightFilter release];		
 		
 		//对比度
 		GPUImageContrastFilter *contrastFilter = [[GPUImageContrastFilter alloc]init];
-		[contrastFilter setContrast:79/100.0f * 3];
+		[contrastFilter setContrast:0.30 ];
 		[self addFilterToChain:contrastFilter];
 		[contrastFilter release];
 
@@ -101,6 +53,13 @@
 		[monochromeFilter setIntensity:0.04];
 		[self addFilterToChain:monochromeFilter];
 		[monochromeFilter release];
+
+		
+		GPUImageOpacityFilter *opacityFilter = [[GPUImageOpacityFilter alloc]init];
+		[opacityFilter setOpacity:0.04];
+		[self addFilterToChain:opacityFilter];
+		[opacityFilter release];
+		
 	}
 	
 	return self;

@@ -419,7 +419,7 @@ static const NSDictionary *filterTypeDic;
 		[turnCameraDeviceButton addTarget:self
 								   action:@selector(onClickTurnCameraDeviceButton) 
 						 forControlEvents:UIControlEventTouchUpInside];
-		_turnCameraDeviceButton = turnCameraDeviceButton;
+		_turnCameraDeviceButton = [turnCameraDeviceButton retain];
 
 	}
 	return _turnCameraDeviceButton;
@@ -1016,7 +1016,7 @@ static const NSDictionary *filterTypeDic;
         NSLog(@"imagePickerController Error, cant get Originalimage");
         return;
     }
-	GPUImagePicture *editPicture = [[GPUImagePicture alloc] initWithImage:image smoothlyScaleOutput:NO];
+	GPUImagePicture *editPicture = [[GPUImagePicture alloc] initWithImage:image smoothlyScaleOutput:YES];
 	self.editPicture = editPicture;
 	[editPicture release];
 	
