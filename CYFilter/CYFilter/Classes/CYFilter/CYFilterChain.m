@@ -24,7 +24,7 @@
     if (!self)
         return nil;
     
-    _filters = [[NSMutableArray alloc] initWithCapacity:1];
+    _filters = [[NSMutableArray alloc] initWithCapacity:10];
     
     return self;
 }

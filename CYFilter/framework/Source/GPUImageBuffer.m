@@ -1,5 +1,10 @@
 #import "GPUImageBuffer.h"
 
+@interface GPUImageBuffer()  
+    
+- (void)removeTexture:(GLuint)textureToRemove;
+
+@end
 @implementation GPUImageBuffer
 
 @synthesize bufferSize = _bufferSize;

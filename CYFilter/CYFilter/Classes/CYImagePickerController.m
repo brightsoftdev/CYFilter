@@ -614,13 +614,18 @@ static const NSDictionary *filterTypeDic;
 	if (CYImagePickerStateEditing == self.pickerState ) {
 		//如果正在编辑状态 直接返回 暂时这样处理
 		self.pickerState = CYImagePickerStateCapture;
-		UIImage *image = [self.filterBack imageFromCurrentlyProcessedOutput];
-		if (image) {
-			UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
+		
+		@autoreleasepool {
+			UIImage *image = [self.filterBack imageFromCurrentlyProcessedOutput];
+			NSLog(@"image width = %f height = %f",image.size.width,image.size.height);
+			if (image) {
+				UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
+			}
+			
+			[self resetFilter];
+			[self prepareTarget];
 		}
 		
-		[self resetFilter];
-		[self prepareTarget];
 
 		return;
 	}
@@ -810,8 +815,8 @@ static const NSDictionary *filterTypeDic;
 	NSLog(@"class name == %@",self.filterClasssNameString);
 	
 	if ([filterClass.class isSubclassOfClass:GPUImageFilter.class] 
-			|| [[[[filterClass.class alloc]init ]autorelease]isKindOfClass:GPUImageFilter.class]
-			||	[[[[filterClass.class alloc]init ]autorelease]isKindOfClass:GPUImageFilterGroup.class]) 
+			|| [filterClass.class isKindOfClass:GPUImageFilter.class]
+			||	[filterClass.class isKindOfClass:GPUImageFilterGroup.class]) 
 	{
 		GPUImageOutput<GPUImageInput> *filterBack= [[filterClass alloc]init];
 		self.filterBack = filterBack; //重新创建滤镜类
