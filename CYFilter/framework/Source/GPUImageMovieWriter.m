@@ -35,7 +35,7 @@ NSString *const kGPUImageColorSwizzlingFragmentShaderString = SHADER_STRING
 }
 
 // Movie recording
-- (void)initializeMovie;
+- (void)initializeMovieWithOutputSettings:(NSMutableDictionary *)outputSettings;
 
 // Frame rendering
 - (void)createDataFBO;
@@ -55,6 +55,7 @@ NSString *const kGPUImageColorSwizzlingFragmentShaderString = SHADER_STRING
 @synthesize failureBlock;
 @synthesize videoInputReadyCallback;
 @synthesize audioInputReadyCallback;
+@synthesize enabled;
 
 @synthesize delegate = _delegate;
 
@@ -63,13 +64,20 @@ NSString *const kGPUImageColorSwizzlingFragmentShaderString = SHADER_STRING
 
 - (id)initWithMovieURL:(NSURL *)newMovieURL size:(CGSize)newSize;
 {
+    return [self initWithMovieURL:newMovieURL size:newSize fileType:AVFileTypeQuickTimeMovie outputSettings:nil];
+}
+- (id)initWithMovieURL:(NSURL *)newMovieURL size:(CGSize)newSize fileType:(NSString *)newFileType outputSettings:(NSMutableDictionary *)outputSettings;
+{
     if (!(self = [super init]))
     {
 		return nil;
     }
 
+    self.enabled = YES;
+    
     videoSize = newSize;
     movieURL = newMovieURL;
+    fileType = newFileType;
     startTime = kCMTimeInvalid;
     _encodingLiveVideo = YES;
     previousFrameTime = kCMTimeNegativeInfinity;
@@ -109,7 +117,7 @@ NSString *const kGPUImageColorSwizzlingFragmentShaderString = SHADER_STRING
 	glEnableVertexAttribArray(colorSwizzlingPositionAttribute);
 	glEnableVertexAttribArray(colorSwizzlingTextureCoordinateAttribute);
     
-    [self initializeMovie];
+    [self initializeMovieWithOutputSettings:outputSettings];
 
     return self;
 }
@@ -127,15 +135,16 @@ NSString *const kGPUImageColorSwizzlingFragmentShaderString = SHADER_STRING
 #pragma mark -
 #pragma mark Movie recording
 
-- (void)initializeMovie;
+- (void)initializeMovieWithOutputSettings:(NSMutableDictionary *)outputSettings;
 {
     isRecording = NO;
     
+    self.enabled = YES;
     frameData = (GLubyte *) malloc((int)videoSize.width * (int)videoSize.height * 4);
 
 //    frameData = (GLubyte *) calloc(videoSize.width * videoSize.height * 4, sizeof(GLubyte));
     NSError *error = nil;
-    assetWriter = [[AVAssetWriter alloc] initWithURL:movieURL fileType:AVFileTypeQuickTimeMovie error:&error];
+    assetWriter = [[AVAssetWriter alloc] initWithURL:movieURL fileType:fileType error:&error];
     if (error != nil)
     {
         NSLog(@"Error: %@", error);
@@ -155,11 +164,24 @@ NSString *const kGPUImageColorSwizzlingFragmentShaderString = SHADER_STRING
     // Set this to make sure that a functional movie is produced, even if the recording is cut off mid-stream. Only the last second should be lost in that case.
     assetWriter.movieFragmentInterval = CMTimeMakeWithSeconds(1.0, 1000);
     
-    NSMutableDictionary * outputSettings = [[NSMutableDictionary alloc] init];
-    [outputSettings setObject:AVVideoCodecH264 forKey:AVVideoCodecKey];
-    [outputSettings setObject:[NSNumber numberWithInt:videoSize.width] forKey:AVVideoWidthKey];
-    [outputSettings setObject:[NSNumber numberWithInt:videoSize.height] forKey:AVVideoHeightKey];
-
+    // use default output settings if none specified
+    if (outputSettings == nil) 
+    {
+        outputSettings = [[NSMutableDictionary alloc] init];
+        [outputSettings setObject:AVVideoCodecH264 forKey:AVVideoCodecKey];
+        [outputSettings setObject:[NSNumber numberWithInt:videoSize.width] forKey:AVVideoWidthKey];
+        [outputSettings setObject:[NSNumber numberWithInt:videoSize.height] forKey:AVVideoHeightKey];
+    }
+    // custom output settings specified
+    else 
+    {
+		NSString *videoCodec = [outputSettings objectForKey:AVVideoCodecKey];
+		NSNumber *width = [outputSettings objectForKey:AVVideoWidthKey];
+		NSNumber *height = [outputSettings objectForKey:AVVideoHeightKey];
+		
+		NSAssert(videoCodec && width && height, @"OutputSettings is missing required parameters.");
+    }
+    
     /*
     NSDictionary *videoCleanApertureSettings = [NSDictionary dictionaryWithObjectsAndKeys:
                                                 [NSNumber numberWithInt:videoSize.width], AVVideoCleanApertureWidthKey,
@@ -203,16 +225,24 @@ NSString *const kGPUImageColorSwizzlingFragmentShaderString = SHADER_STRING
 {
     isRecording = YES;
     startTime = kCMTimeInvalid;
-//    [assetWriter startWriting];
+	//    [assetWriter startWriting];
     
-//    [assetWriter startSessionAtSourceTime:kCMTimeZero];
+	//    [assetWriter startSessionAtSourceTime:kCMTimeZero];
+}
+
+- (void)startRecordingInOrientation:(CGAffineTransform)orientationTransform;
+{
+	assetWriterVideoInput.transform = orientationTransform;
+
+	[self startRecording];
 }
 
 - (void)finishRecording;
 {
     isRecording = NO;
-//    [assetWriterVideoInput markAsFinished];
-    [assetWriter finishWriting];    
+	[assetWriterVideoInput markAsFinished];
+	[assetWriterAudioInput markAsFinished];
+	[assetWriter finishWriting];
 }
 
 - (void)processAudioBuffer:(CMSampleBufferRef)audioBuffer;
@@ -533,37 +563,21 @@ NSString *const kGPUImageColorSwizzlingFragmentShaderString = SHADER_STRING
 
 - (void)setHasAudioTrack:(BOOL)newValue
 {
+	[self setHasAudioTrack:newValue audioSettings:nil];
+}
+
+- (void)setHasAudioTrack:(BOOL)newValue audioSettings:(NSDictionary *)audioOutputSettings;
+{
     _hasAudioTrack = newValue;
     
     if (_hasAudioTrack)
     {
-        NSDictionary *audioOutputSettings = nil;
         if (_shouldPassthroughAudio)
         {
-//            float ver = [[[UIDevice currentDevice] systemVersion] floatValue];
-//            if (ver < 4.3) // Older iOS versions complain about using nil settings for passthrough audio, so I need to check for that
-//            {
-//                double preferredHardwareSampleRate = [[AVAudioSession sharedInstance] currentHardwareSampleRate];
-//                
-//                AudioChannelLayout acl;
-//                bzero( &acl, sizeof(acl));
-//                acl.mChannelLayoutTag = kAudioChannelLayoutTag_Mono;
-//                
-//                audioOutputSettings = [NSDictionary dictionaryWithObjectsAndKeys:
-//                                       [ NSNumber numberWithInt: kAudioFormatMPEG4AAC], AVFormatIDKey,
-//                                       [ NSNumber numberWithInt: 1 ], AVNumberOfChannelsKey,
-//                                       [ NSNumber numberWithFloat: preferredHardwareSampleRate ], AVSampleRateKey,
-//                                       [ NSData dataWithBytes: &acl length: sizeof( acl ) ], AVChannelLayoutKey,
-//                                       //[ NSNumber numberWithInt:AVAudioQualityLow], AVEncoderAudioQualityKey,
-//                                       [ NSNumber numberWithInt: 64000 ], AVEncoderBitRateKey,
-//                                       nil];
-//            }
-//            else
-//            {
-                audioOutputSettings = nil;                
-//            }
+			// Do not set any settings so audio will be the same as passthrough
+			audioOutputSettings = nil;
         }
-        else
+        else if (audioOutputSettings == nil)
         {
             double preferredHardwareSampleRate = [[AVAudioSession sharedInstance] currentHardwareSampleRate];
             

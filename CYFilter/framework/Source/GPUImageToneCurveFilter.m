@@ -130,7 +130,7 @@ return nil;
 		CGPoint cur = [[points objectAtIndex:i] CGPointValue];
 		CGPoint next = [[points objectAtIndex:(i+1)] CGPointValue];
 		
-		for(int x=cur.x;x<next.x;x++) 
+		for(int x=cur.x;(int)x<next.x;x++) 
 		{
 			double t = (double)(x-cur.x)/(next.x-cur.x);
 			

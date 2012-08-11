@@ -11,6 +11,9 @@
 	AVCaptureVideoDataOutput *videoOutput;
 	AVCaptureAudioDataOutput *audioOutput;
     NSDate *startingCaptureTime;
+	
+	NSString *_capturSessionPreset;
+	NSInteger _frameRate;
     
     dispatch_queue_t audioProcessingQueue;
 }
@@ -23,6 +26,7 @@
 @synthesize inputCamera = _inputCamera;
 @synthesize runBenchmark = _runBenchmark;
 @synthesize outputImageOrientation = _outputImageOrientation;
+@synthesize delegate = _delegate;
 
 #pragma mark -
 #pragma mark Initialization and teardown
@@ -46,6 +50,7 @@
     
 	audioProcessingQueue = dispatch_queue_create("com.sunsetlakesoftware.GPUImage.processingQueue", NULL);
     
+	_frameRate = 0; // This will not set frame rate unless this value gets set to 1 or above
     _runBenchmark = NO;
     capturePaused = NO;
     outputRotation = kGPUImageNoRotation;
@@ -111,7 +116,8 @@
 		NSLog(@"Couldn't add video output");
 	}
     
-    [_captureSession setSessionPreset:sessionPreset];
+	_capturSessionPreset = sessionPreset;
+    [_captureSession setSessionPreset:_capturSessionPreset];
 
 // This will let you get 60 FPS video from the 720p preset on an iPhone 4S, but only that device and that preset
 //    AVCaptureConnection *conn = [videoOutput connectionWithMediaType:AVMediaTypeVideo];
@@ -199,6 +205,9 @@
 
 - (void)rotateCamera
 {
+	if (self.frontFacingCameraPresent == NO)
+		return;
+	
     NSError *error;
     AVCaptureDeviceInput *newVideoInput;
     AVCaptureDevicePosition currentCameraPosition = [[videoInput device] position];
@@ -249,6 +258,67 @@
     return [[videoInput device] position];
 }
 
+- (BOOL)isFrontFacingCameraPresent;
+{
+	NSArray *devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
+	
+	for (AVCaptureDevice *device in devices)
+	{
+		if ([device position] == AVCaptureDevicePositionFront)
+			return YES;
+	}
+	
+	return NO;
+}
+
+- (void)setCaptureSessionPreset:(NSString *)captureSessionPreset;
+{
+	[_captureSession beginConfiguration];
+	
+	_capturSessionPreset = captureSessionPreset;
+	[_captureSession setSessionPreset:_capturSessionPreset];
+	
+	[_captureSession commitConfiguration];
+}
+
+- (NSString *)captureSessionPreset;
+{
+	return _capturSessionPreset;
+}
+
+- (void)setFrameRate:(NSInteger)frameRate;
+{
+	_frameRate = frameRate;
+	
+	if (_frameRate > 0)
+	{
+		for (AVCaptureConnection *connection in videoOutput.connections)
+		{
+			if ([connection respondsToSelector:@selector(setVideoMinFrameDuration:)])
+				connection.videoMinFrameDuration = CMTimeMake(1, _frameRate);
+			
+			if ([connection respondsToSelector:@selector(setVideoMaxFrameDuration:)])
+				connection.videoMaxFrameDuration = CMTimeMake(1, _frameRate);
+		}
+	}
+	else
+	{
+		for (AVCaptureConnection *connection in videoOutput.connections)
+		{
+			if ([connection respondsToSelector:@selector(setVideoMinFrameDuration:)])
+				connection.videoMinFrameDuration = kCMTimeInvalid; // This sets videoMinFrameDuration back to default
+			
+			if ([connection respondsToSelector:@selector(setVideoMaxFrameDuration:)])
+				connection.videoMaxFrameDuration = kCMTimeInvalid; // This sets videoMaxFrameDuration back to default
+		}
+	}
+}
+
+- (NSInteger)frameRate;
+{
+	return _frameRate;
+}
+
 #define INITIALFRAMESTOIGNOREFORBENCHMARK 5
 
 - (void)processVideoSampleBuffer:(CMSampleBufferRef)sampleBuffer;
@@ -288,7 +358,8 @@
 
         for (id<GPUImageInput> currentTarget in targets)
         {
-            if ([(GPUImageOutput *)currentTarget respondsToSelector:@selector(enabled)] && [(GPUImageOutput *)currentTarget isEnabled]) {
+            if ([currentTarget enabled])
+            {
                 NSInteger indexOfObject = [targets indexOfObject:currentTarget];
                 NSInteger textureIndexOfTarget = [[targetTextureIndices objectAtIndex:indexOfObject] integerValue];
                 
@@ -344,7 +415,8 @@
         
         for (id<GPUImageInput> currentTarget in targets)
         {
-            if ([(GPUImageOutput *)currentTarget respondsToSelector:@selector(enabled)] && [(GPUImageOutput *)currentTarget isEnabled]) {
+            if ([currentTarget enabled])
+            {
                 if (currentTarget != self.targetToIgnoreForUpdates)
                 {
                     NSInteger indexOfObject = [targets indexOfObject:currentTarget];
@@ -389,8 +461,8 @@
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection
 {
 	//This may help keep memory footprint low
-	@autoreleasepool 
-	{
+    @autoreleasepool {
+
 		//these need to be on the main thread for proper timing
         __unsafe_unretained id weakSelf = self;
 		if (captureOutput == audioOutput)
@@ -401,11 +473,20 @@
 		}
 		else
 		{
-			runOnMainQueueWithoutDeadlocking(^{ 
+            
+			runOnMainQueueWithoutDeadlocking(^{
+                //Feature Detection Hook.
+                if (self.delegate) {
+                    [self.delegate willOutputSampleBuffer:sampleBuffer];
+                }
+                
                 [weakSelf processVideoSampleBuffer:sampleBuffer];
+                
+                
             });
 		}
-	}
+    }
+	
 }
 
 #pragma mark -

@@ -242,7 +242,7 @@ static const NSDictionary *filterTypeDic;
 		_pickerState = state;
 		
 		if (CYImagePickerStateEditing == _pickerState   && editImage ) {
-			_editPicture = [[GPUImagePicture alloc] initWithImage:editImage smoothlyScaleOutput:YES];
+			_editPicture = [[GPUImagePicture alloc] initWithImage:editImage smoothlyScaleOutput:NO];
 			
 		}
 	}
@@ -660,7 +660,7 @@ static const NSDictionary *filterTypeDic;
 				UIImage *image = [[UIImage alloc]initWithData: processedPNG];
 				NSLog(@"height = %f width = %f",image.size.height,image.size.height);
 				
-				GPUImagePicture *editPicture = [[GPUImagePicture alloc] initWithImage:image smoothlyScaleOutput:YES];
+				GPUImagePicture *editPicture = [[GPUImagePicture alloc] initWithImage:image smoothlyScaleOutput:NO];
 				bself.editPicture = editPicture;
 				[editPicture release];
 								
@@ -736,12 +736,13 @@ static const NSDictionary *filterTypeDic;
 			NSLog(@"filter class = %@",NSStringFromClass(self.filterBack.class ) );
 			
 			GPUImagePinchDistortionFilter *sepiaFilter = [[GPUImagePinchDistortionFilter alloc] init];
-			[sepiaFilter prepareForImageCapture];
+//			[sepiaFilter prepareForImageCapture];
 			[(GPUImageFilterGroup *)filter addFilter:sepiaFilter];
 			
 			GPUImageVignetteFilter *pixellateFilter = [[GPUImageVignetteFilter alloc] init];
-			[pixellateFilter prepareForImageCapture];
+//			[pixellateFilter prepareForImageCapture];
 			[(GPUImageFilterGroup *)filter addFilter:pixellateFilter];
+			
 			[sepiaFilter setScale: - 0.8];
 			[sepiaFilter setRadius:2.0];
 			[sepiaFilter addTarget:pixellateFilter];
@@ -1021,7 +1022,7 @@ static const NSDictionary *filterTypeDic;
         NSLog(@"imagePickerController Error, cant get Originalimage");
         return;
     }
-	GPUImagePicture *editPicture = [[GPUImagePicture alloc] initWithImage:image smoothlyScaleOutput:YES];
+	GPUImagePicture *editPicture = [[GPUImagePicture alloc] initWithImage:image smoothlyScaleOutput:NO];
 	self.editPicture = editPicture;
 	[editPicture release];
 	
